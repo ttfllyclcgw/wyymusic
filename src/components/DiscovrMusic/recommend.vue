@@ -46,18 +46,18 @@ export default {
     visibility: hidden;
 }
 .left-recommend{
-    width:63vw;
+    width:75%;
     height:100%;
 }
 .right-recommend{
-    width:18vw;
+    width:25%;
 }
 .left-recommend,.right-recommend{
     float:left;
     border: 0px solid;
 }
 .hot-recommend{
-    height: 70vh;
+    height: 100%;
 }
 .hot-recommend-music{
     border: 0px solid;

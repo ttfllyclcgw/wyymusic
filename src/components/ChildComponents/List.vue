@@ -26,7 +26,7 @@ export default {
 <style lang="less">
 @fontSize:1.3rem;
 @color: #333;
-@lineHeight: 3rem;
+@lineHeight: 3.2rem;
 .v-list{
     width: 100%;
     border-bottom: 2px solid #C10D0C;
@@ -35,7 +35,7 @@ export default {
         color: @color;
         font-size: @fontSize;
         margin-left: 0.2vw;
-        line-height: 2.6rem;
+        line-height: 2.8rem;
     }
     .tab a{
         color: @color;
