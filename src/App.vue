@@ -61,7 +61,7 @@
            listMaxHeight="100px" style="margin:0"></aplayer>
       </a-layout-header>
       <a-layout-content class="menu-content">
-        <div :style="{ background: '#fff', minHeight: '80vh' }">
+        <div :style="{ background: '#fff',height: '100%' }">
           <keep-alive>
             <router-view></router-view>
           </keep-alive>
