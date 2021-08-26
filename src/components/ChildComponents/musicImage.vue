@@ -8,7 +8,7 @@
                     <div class="music-bottom" :class="{musicBottom:ismusicBottom}">
                         <a-icon class="bottom-ej" type="customer-service" />
                         <span class="nb">{{item.musicNb}}</span>
-                        <a-icon class="bottom-bf" title="播放" type="play-circle" @click="getData" />
+                        <a-icon class="bottom-bf" title="播放" type="play-circle" />
                     </div>
                 </div>
                 <p :class="{dec:isdec}" class="music-dec"><a href="#">{{item.musicMsk}}</a></p>
@@ -45,9 +45,6 @@ export default{
         }
     },
     methods:{
-        getData(){
-            console.log("data:",this.data)
-        }
     }
 }
 </script>
