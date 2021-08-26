@@ -128,4 +128,8 @@ export default {
   text-align: center;
   padding: 0;
 }
+p{
+    vertical-align: middle;
+    color: #000;
+}
 </style>

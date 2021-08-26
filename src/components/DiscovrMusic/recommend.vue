@@ -1,6 +1,6 @@
 <template>
     <!-- /发现音乐/推荐 -->
-    <div>
+    <div class="recommend">
         <div class="left-recommend">
             <div class="hot-recommend">
                 <List :islistIcon="false">
@@ -24,7 +24,8 @@
                     </template>
                 </List>
                 <div class="hot-recommend-music">
-                    <MusicImage></MusicImage>
+                    <MusicImage :isData="datalist" :isdec="false" 
+                        :islove="false" :ismusicBottom="false" ></MusicImage>
                 </div>
             </div>
         </div>
@@ -38,6 +39,40 @@ export default {
     components:{
         List,
         MusicImage
+    },
+    data(){
+        return{
+            datalist:[
+                {
+                    musicId:'1',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'24万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'2',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'2',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'2',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+            ]
+        }
     }
 }
 </script>
@@ -46,11 +81,12 @@ export default {
     visibility: hidden;
 }
 .left-recommend{
-    width:75%;
+    width:74%;
     height:100%;
 }
 .right-recommend{
     width:25%;
+    margin-left: 1%;
 }
 .left-recommend,.right-recommend{
     float:left;
