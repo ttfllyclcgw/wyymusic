@@ -1,6 +1,6 @@
 <template>
   <a-layout id="components-layout-demo-side" style="min-height: 100vh">
-    <a-layout-sider v-model="collapsed" collapsible>
+    <a-layout-sider v-model="collapsed" collapsible class="menu-sider">
       <div class="logo" />
       <a-menu theme="dark" :default-selected-keys="['1']" mode="inline">
         <a-sub-menu key="sub1">
@@ -63,7 +63,7 @@
       <a-layout-content class="menu-content">
         <div :style="{ background: '#fff',height: '100%' }">
           <keep-alive>
-            <router-view></router-view>
+            <!--<router-view></router-view>-->
           </keep-alive>
         </div>
       </a-layout-content>
@@ -116,13 +116,29 @@ export default {
   background: url(assets/topbar.png?d2f76305527ad432e0bcf8ce0bfbaa4e) no-repeat 8px -19.5px;
   margin: 16px;
 }
+.menu-sider{
+  position:fixed;
+  left:0px;
+  width:30%;
+}
 .menu-aplayer{
-  height: 14vh;
+  height: 10%;
   padding: 0;
   background: #fff;
+  position:fixed;
+  right:0.1%;
+  top:0px;
+  width:85%;
 }
 .menu-content{
   margin: 2vh 2vh 0 2vh;
+  width:85%;
+  height:90%;
+  position: absolute;
+  bottom:5%;
+  left: 14.1%;
+  top:13.5%;
+  background:#000;
 }
 .menu-footer{
   text-align: center;
@@ -131,5 +147,8 @@ export default {
 p{
     vertical-align: middle;
     color: #000;
+}
+.menu-layout-fixed{
+  position: absolute;
 }
 </style>

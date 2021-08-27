@@ -1,25 +1,27 @@
 <template>
     <div>
-        <ul class="music-ul">
-            <li v-for="(item,index) in this.data" :key="index">
-                <div class="music-image">
-                    <img :src="item.musicImg" />
-                    <a class="music-msk" :title="item.musicMsk" href="#"></a>
-                    <div class="music-bottom" :class="{musicBottom:ismusicBottom}">
-                        <a-icon class="bottom-ej" type="customer-service" />
-                        <span class="nb">{{item.musicNb}}</span>
-                        <a-icon class="bottom-bf" title="播放" type="play-circle" @click="getData" />
+        <slot name="recommend">
+            <!--<ul class="music-ul">
+                <li v-for="(item,index) in this.data" :key="index">
+                    <div class="music-image">
+                        <img :src="item.musicImg" />
+                        <a class="music-msk" :title="item.musicMsk" href="#"></a>
+                        <div class="music-bottom" :class="{musicBottom:ismusicBottom}">
+                            <a-icon class="bottom-ej" type="customer-service" />
+                            <span class="nb">{{item.musicNb}}</span>
+                            <a-icon class="bottom-bf" title="播放" type="play-circle" />
                     </div>
-                </div>
-                <p :class="{dec:isdec}" class="music-dec"><a href="#">{{item.musicMsk}}</a></p>
-                <p :class="{love:islove}" class="music-love"><em :title="item.musicLove">{{item.musicLove}}</em></p>
-            </li>
-        </ul>  
+                    </div>
+                    <p :class="{dec:isdec}" class="music-dec"><a href="#">{{item.musicMsk}}</a></p>
+                    <p :class="{love:islove}" class="music-love"><em :title="item.musicLove">{{item.musicLove}}</em></p>
+                </li>
+            </ul>-->
+        </slot>
     </div>
 </template>
 <script>
 export default{
-    props:{
+    /**props:{
         isdec:{     //描述是否显示 false为显示
             type: Boolean,
             required: true,
@@ -45,10 +47,7 @@ export default{
         }
     },
     methods:{
-        getData(){
-            console.log("data:",this.data)
-        }
-    }
+    }*/
 }
 </script>
 <style lang="less">
@@ -70,7 +69,6 @@ export default{
 }
 .music-image img{
     opacity: 0.7;
-    z-index: 999;
 }
 .music-msk{
     position: absolute;
@@ -105,7 +103,7 @@ export default{
     width: @width;
     color: @color;
 }
-.music a:hover{
+.music-dec a:hover{
     text-decoration: underline;
     color: @color;
 }
