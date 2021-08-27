@@ -1,6 +1,5 @@
 <template>
     <div>
-<<<<<<< HEAD
         <slot name="recommend">
             <!--<ul class="music-ul">
                 <li v-for="(item,index) in this.data" :key="index">
@@ -11,17 +10,6 @@
                             <a-icon class="bottom-ej" type="customer-service" />
                             <span class="nb">{{item.musicNb}}</span>
                             <a-icon class="bottom-bf" title="播放" type="play-circle" />
-=======
-        <ul class="music-ul">
-            <li v-for="(item,index) in this.data" :key="index">
-                <div class="music-image">
-                    <img :src="item.musicImg" />
-                    <a class="music-msk" :title="item.musicMsk" href="#"></a>
-                    <div class="music-bottom" :class="{musicBottom:ismusicBottom}">
-                        <a-icon class="bottom-ej" type="customer-service" />
-                        <span class="nb">{{item.musicNb}}</span>
-                        <a-icon class="bottom-bf" title="播放" type="play-circle" />
->>>>>>> 7ca55df75242e283b08a943cfc8dbd796dfdfc41
                     </div>
                     </div>
                     <p :class="{dec:isdec}" class="music-dec"><a href="#">{{item.musicMsk}}</a></p>
@@ -59,11 +47,7 @@ export default{
         }
     },
     methods:{
-<<<<<<< HEAD
     }*/
-=======
-    }
->>>>>>> 7ca55df75242e283b08a943cfc8dbd796dfdfc41
 }
 </script>
 <style lang="less">
