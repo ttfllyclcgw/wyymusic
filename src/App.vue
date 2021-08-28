@@ -63,7 +63,7 @@
       <a-layout-content class="menu-content">
         <div :style="{ background: '#fff',height: '100%' }">
           <keep-alive>
-            <!--<router-view></router-view>-->
+            <router-view></router-view>
           </keep-alive>
         </div>
       </a-layout-content>
@@ -110,35 +110,35 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 #components-layout-demo-side .logo {
   height: 32px;
   background: url(assets/topbar.png?d2f76305527ad432e0bcf8ce0bfbaa4e) no-repeat 8px -19.5px;
   margin: 16px;
 }
-.menu-sider{
-  position:fixed;
-  left:0px;
-  width:30%;
+#components-layout-demo-side{
+  position: relative;
+  overflow-y: auto;
 }
 .menu-aplayer{
   height: 10%;
   padding: 0;
-  background: #fff;
   position:fixed;
-  right:0.1%;
-  top:0px;
-  width:85%;
+  right: 0;
+  width:86.9%;
+  min-width:30%;
+}
+.menu-sider{
+  position:fixed;
+  height: 100%;
+  white-space: nowrap;
 }
 .menu-content{
-  margin: 2vh 2vh 0 2vh;
-  width:85%;
-  height:90%;
-  position: absolute;
-  bottom:5%;
-  left: 14.1%;
-  top:13.5%;
-  background:#000;
+  margin-left:13.5%;
+  margin-top:6.5%;
+  width:86%;
+  height: 100%;
+  overflow-y: auto;
 }
 .menu-footer{
   text-align: center;
@@ -148,7 +148,34 @@ p{
     vertical-align: middle;
     color: #000;
 }
-.menu-layout-fixed{
-  position: absolute;
+::-webkit-scrollbar-track-piece { 
+  background-color:#f8f8f8;
+}
+::-webkit-scrollbar {
+  width:9px;
+  height:9px;
+}
+::-webkit-scrollbar-thumb {
+  background-color:#dddddd;
+  background-clip:padding-box;
+  min-height:28px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color:#bbb;
+}
+#components-layout-demo-side::-webkit-scrollbar {
+ width: 8px;
+}
+#components-layout-demo-side::-webkit-scrollbar-track {
+ background-color:red;
+ -webkit-border-radius: 2em;
+ -moz-border-radius: 2em;
+ border-radius:2em;
+}
+#components-layout-demo-side::-webkit-scrollbar-thumb {
+ background-color:green;
+ -webkit-border-radius: 2em;
+ -moz-border-radius: 2em;
+ border-radius:2em;
 }
 </style>

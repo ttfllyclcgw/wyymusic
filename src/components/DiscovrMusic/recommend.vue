@@ -24,8 +24,6 @@
                     </template>
                 </List>
                 <div class="hot-recommend-music">
-                    <MusicImage :isData="datalist" :isdec="false" 
-                        :islove="false" :ismusicBottom="false" ></MusicImage>
                     <MusicImage>
                         <template v-slot:recommend>
                             <ul class="music-ul" v-if="hotRecommend.length">
@@ -93,7 +91,7 @@ export default {
     },
     data(){
         return{
-            datalist:[
+            hotRecommend:[
                 {
                     musicId:'1',
                     musicImg:'/109951166027478939.jpg',
