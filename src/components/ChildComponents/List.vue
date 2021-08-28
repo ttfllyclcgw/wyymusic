@@ -78,4 +78,39 @@ export default {
 .tab a:hover,.more a:hover{
     text-decoration: underline;
 }
+
+::-webkit-scrollbar-track-piece { 
+  background-color:#f8f8f8;
+}
+::-webkit-scrollbar {
+  width:9px;
+  height:9px;
+}
+::-webkit-scrollbar-thumb {
+  background-color:#dddddd;
+  background-clip:padding-box;
+  min-height:28px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color:#bbb;
+}
+#components-layout-demo-side::-webkit-scrollbar {
+ width: 8px;
+}
+#components-layout-demo-side::-webkit-scrollbar-track {
+ background-color:red;
+ -webkit-border-radius: 2em;
+ -moz-border-radius: 2em;
+ border-radius:2em;
+}
+#components-layout-demo-side::-webkit-scrollbar-thumb {
+ background-color:green;
+ -webkit-border-radius: 2em;
+ -moz-border-radius: 2em;
+ border-radius:2em;
+}
+p{
+    vertical-align: middle;
+    color: #000;
+}
 </style>

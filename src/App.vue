@@ -80,6 +80,13 @@ export default {
   },
   mounted(){
     this.$router.push('/discovrMusic/recommend')
+
+    /**document.querySelector('.anticon .anticon-left').addEventListener('click',(e)=>{
+      alert(e)
+    })*/
+  },
+  methods:{
+    
   },
   data() {
     return {
@@ -110,7 +117,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #components-layout-demo-side .logo {
   height: 32px;
   background: url(assets/topbar.png?d2f76305527ad432e0bcf8ce0bfbaa4e) no-repeat 8px -19.5px;
@@ -144,38 +151,6 @@ export default {
   text-align: center;
   padding: 0;
 }
-p{
-    vertical-align: middle;
-    color: #000;
-}
-::-webkit-scrollbar-track-piece { 
-  background-color:#f8f8f8;
-}
-::-webkit-scrollbar {
-  width:9px;
-  height:9px;
-}
-::-webkit-scrollbar-thumb {
-  background-color:#dddddd;
-  background-clip:padding-box;
-  min-height:28px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color:#bbb;
-}
-#components-layout-demo-side::-webkit-scrollbar {
- width: 8px;
-}
-#components-layout-demo-side::-webkit-scrollbar-track {
- background-color:red;
- -webkit-border-radius: 2em;
- -moz-border-radius: 2em;
- border-radius:2em;
-}
-#components-layout-demo-side::-webkit-scrollbar-thumb {
- background-color:green;
- -webkit-border-radius: 2em;
- -moz-border-radius: 2em;
- border-radius:2em;
-}
+
+
 </style>
