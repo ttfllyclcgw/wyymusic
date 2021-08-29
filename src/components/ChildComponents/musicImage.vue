@@ -37,9 +37,6 @@ export default{
             required: true,
             default: false
         },
-        isData:{
-            type:Array
-        }
     },
     data(){
         return{
@@ -60,7 +57,7 @@ export default{
 .music-ul li{
     list-style-type: none;
     width: 140px;
-    margin-left:6.5%;
+    margin-left:5%;
     float: left;
 }
 .music-image{
@@ -109,6 +106,7 @@ export default{
 }
 .music-dec{
     margin-bottom: 0;
+    font-size: 14px;
 }
 .music-bottom .bottom-bf{
     cursor: pointer;

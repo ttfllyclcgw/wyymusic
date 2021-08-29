@@ -38,7 +38,6 @@
                                         </div>
                                     </div>
                                     <p class="music-dec"><a href="#">{{item.musicMsk}}</a></p>
-                                    <p class="music-love"><em :title="item.musicLove">{{item.musicLove}}</em></p>
                                 </li>
                             </ul>  
                         </template>
@@ -58,8 +57,8 @@
                 <div class="recommend-ation-music">
                     <MusicImage>
                         <template v-slot:recommend>
-                            <ul class="music-ul" v-if="hotRecommend.length">
-                                <li v-for="(item,index) in hotRecommend" :key="index">
+                            <ul class="music-ul" v-if="recommendAtion.length">
+                                <li v-for="(item,index) in recommendAtion" :key="index">
                                     <div class="music-image">
                                         <img :src="item.musicImg" />
                                         <a class="music-msk" :title="item.musicMsk" href="#"></a>
@@ -77,49 +76,74 @@
                     </MusicImage>
                 </div>
             </div>
+            <div class="new-shelves">
+                <List :islistIcon="false">
+                    <template v-slot:listTitle>
+                        <a href="#" class="v-list-title">新碟上架</a>
+                    </template>
+                    <template v-slot:listMore>
+                        <a href="#">更多</a>
+                        <a-icon class="more-icon" type="more" />
+                    </template>
+                </List>
+                <div class="new-shelves-music">
+                    <SingerImage>
+                        <template v-slot:singerMusic>
+                            <a-icon type="left-circle" theme="twoTone" two-tone-color="#C10D0C" />
+                            <ul class="singer-ul">
+                                <li v-for="(item,index) in newShelvesMusic" :key="index">
+                                    <div class="singer-image">
+                                        <img :src="item.musicImg"/>
+                                        <a class="singer-msk" :title="item.musicMsk" href="#"></a>
+                                        <div class="singer-bottom" >
+                                            <a-icon class="bottom-bf" title="播放" type="play-circle" />
+                                         </div>
+                                    </div>
+                                    <p class="singer-dec"><a href="#" :title="item.musicMsk">{{item.musicMsk}}</a></p>
+                                    <p class="singer-love"><em :title="item.musicSinger">{{item.musicSinger}}</em></p>
+                                </li>
+                            </ul>
+                            <a-icon type="right-circle" theme="twoTone" two-tone-color="#C10D0C" />
+                        </template>
+                    </SingerImage>
+                </div>
+            </div>
+            
         </div>
-        <div class="right-recommend"></div>
+        <div class="right-recommend">
+            <div class="recommend-user-login">
+                <p>登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机</p>
+                <a-button type="danger">用户登录</a-button>
+            </div>
+            <div class="recommend-singer">
+                <List :islistIcon="true" style="border-bottom:1px solid #ccc;">
+                    <template v-slot:listTitle>
+                        <a href="#" class="v-list-title" style="font-size:12px;font-weight:bold;margin:1.5vh 0 0 -1vw;">入驻歌手</a>
+                    </template>
+                    <template v-slot:listMore>
+                        <a href="#" style="font-size:12px;margin-right:1vw;margin-top:1vh;">查看全部></a>
+                    </template>
+                </List>
+                <SingerList :titleFontSize="14"></SingerList>
+            </div>
+        </div>
     </div>
 </template>
 <script>
 import List from '../ChildComponents/List'
 import MusicImage from '../ChildComponents/musicImage'
+import SingerImage from '../ChildComponents/singerImage'
+import SingerList from '../ChildComponents/singerList'
 export default {
     components:{
         List,
-        MusicImage
+        MusicImage,
+        SingerImage,
+        SingerList
     },
     data(){
         return{
             hotRecommend:[
-                {
-                    musicId:'1',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'2',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'2',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'4',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
                 {
                     musicId:'1',
                     musicImg:'/109951166027478939.jpg',
@@ -147,7 +171,124 @@ export default {
                     musicMsk:'私人雷达|根据听歌记录为你打造',
                     musicNb:'25万',
                     musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'5',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'24万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'6',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'7',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'8',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'9',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'10',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
                 }
+            ],
+            recommendAtion:[
+                {
+                    musicId:'1',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'24万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'2',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'3',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'4',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'5',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'24万',
+                    musicLove:'猜你喜欢'
+                },
+            ],
+            newShelvesMusic:[
+                {
+                    musicId:'1',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'在世界的尽头说我恨你',
+                    musicSinger:'鱼丁糸'
+                },
+                {
+                    musicId:'2',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'Human (Deluxe)',
+                    musicSinger:'OneRepublic'
+                },
+                {
+                    musicId:'3',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'我们好好的',
+                    musicSinger:'李荣浩'
+                },
+                {
+                    musicId:'4',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'这些年为你攒下的歌Pt.1',
+                    musicSinger:'黄渤'
+                },
+                {
+                    musicId:'5',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'Solar Power',
+                    musicSinger:'Lorde'
+                },
+                {
+                    musicId:'6',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'不期而遇的夏天',
+                    musicSinger:'陈奕迅'
+                },
             ],
         }
     }
@@ -158,26 +299,62 @@ export default {
     visibility: hidden;
 }
 .left-recommend{
-    width:74%;
+    width:78%;
     height:100%;
 }
 .right-recommend{
-    width:25%;
+    width:21%;
     margin-left: 1%;
+    height: 100%;
 }
 .left-recommend,.right-recommend{
     float:left;
-    border: 0px solid;
+    border: 1px solid #d3d3d3;
+    border-bottom: 0;
 }
-.hot-recommend,.recommend-ation{
+.hot-recommend,.recommend-ation,.new-shelves{
     height: 100%;
 }
 .hot-recommend-music{
     border: 0px solid;
-    height:68vh;
+    height:60vh;
     margin:0;
 }
 .recommend-ation-music{
+    height: 34vh;
     margin:0;
+}
+.new-shelves-music{
+    margin:0;
+}
+.anticon-left-circle,.anticon-right-circle{
+    font-size: 1.5em;
+    z-index: 3;
+    cursor: pointer;
+}
+.anticon-left-circle{
+    position:absolute;
+    margin-top: 4%;
+    margin-left: 1%;
+}
+.anticon-right-circle{
+    position:absolute;
+    margin-top: 3.5%;
+    margin-left: 1.5%;
+}
+.recommend-singer{
+    height: 100%;
+}
+.recommend-user-login{
+    height: 20vh;
+    background:#fafafa;
+    border-bottom: 2px solid #ccc;
+}
+.recommend-user-login p{
+    color: #666;
+    padding:3vh 0 1vw 1vw;
+}
+.recommend-user-login .ant-btn-danger{
+    margin-left: 32%;
 }
 </style>

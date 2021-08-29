@@ -19,7 +19,7 @@ export default {
       type: Boolean,
       required: true,
       default:false  //默认显示
-    }
+    },
   }
 }
 </script>
@@ -112,5 +112,6 @@ export default {
 p{
     vertical-align: middle;
     color: #000;
+    font-size: 12px;
 }
 </style>
