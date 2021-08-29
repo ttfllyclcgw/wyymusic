@@ -74,16 +74,14 @@
 
 <script>
 import aplayer from 'vue-aplayer'  //引入vue-aplayer音频播放器
+
 export default {
   components:{
     aplayer
   },
   mounted(){
     this.$router.push('/discovrMusic/recommend')
-
-    /**document.querySelector('.anticon .anticon-left').addEventListener('click',(e)=>{
-      alert(e)
-    })*/
+    
   },
   methods:{
     
