@@ -7,7 +7,7 @@
                 <a-icon type="history" /><span>最近更新:</span><span>08月31日(每天更新)</span>
                 <div>
                     <a-button type="primary" icon="play-circle" :size="size">播放</a-button>
-                    <a-button type="primary" icon="plus" :size="size" class="rank-plus" />
+                    <a-button type="primary" icon="plus" :size="size" class="rank-plus" style="font-size:12px" />
                     <a-button icon="folder-add" :size="size">(111)</a-button>
                     <a-button icon="rise" :size="size">(33333333)</a-button>
                     <a-button icon="download" :size="size">下载</a-button>
@@ -17,10 +17,10 @@
         <div class="ranking-list">
             <List :islistIcon="true">
                 <template v-slot:listTitle>
-                    <a href="#" class="v-list-title">歌曲列表</a>
+                    <a href="#" class="v-list-title" style="cursor:default;textDecoration:none;">歌曲列表</a>
                 </template>
                 <template v-slot:listTab>
-                    <a href="#" style="font-size:12px;margin-left:1vw;margin-top:0.2vh">99首歌</a>
+                    <a href="#" style="font-size:12px;margin-left:1vw;margin-top:0.2vh;cursor:default;textDecoration:none;">99首歌</a>
                 </template>
                 <template v-slot:listMore>
                     <a href="#" style="font-size:12px;cursor:default;textDecoration:none;margin-right:1vw;margin-top:1vh;">
@@ -148,16 +148,20 @@ export default{
     border: 1px solid #ccc;
     padding:2px;
 }
-.ranking-title .rktitle{
-    margin-left: 4%;
-    margin-top: 1.5%;
+.ranking-title{
+    margin-left: 2vw;
+    margin-top: 1vh;
+}
+.rktitle{
+    margin-left: 2vw;
+    margin-top: 2vh;
 }
 .ranking-title .rktitle > span{
     font-size: 12px;
-    margin-left: 1%;
+    margin-left: 0.3vw;
 }
 .ranking-title .rktitle > div{
-    margin-top: 3%;
+    margin-top: 2vh;
     width:40vw;
 }
 .rank-plus{

@@ -116,7 +116,7 @@
                 <a-button type="danger">用户登录</a-button>
             </div>
             <div class="recommend-singer">
-                <List :islistIcon="true" style="border-bottom:0px solid">
+                <List :islistIcon="true" style="border-bottom:1px solid #ccc">
                     <template v-slot:listTitle>
                         <a href="#" class="v-list-title" style="font-size:12px;font-weight:bold;margin:1.5vh 0 0 -1vw;">入驻歌手</a>
                     </template>
@@ -332,12 +332,12 @@ export default {
     visibility: hidden;
 }
 .left-recommend{
-    width:78%;
+    width:65vw;
     height:100%;
 }
 .right-recommend{
-    width:21%;
-    margin-left: 1%;
+    width:18.5vw;
+    margin-left: 0.5vw;
     height: 100%;
 }
 .left-recommend,.right-recommend{
@@ -350,11 +350,11 @@ export default {
 }
 .hot-recommend-music{
     border: 0px solid;
-    height:60vh;
     margin:0;
+    height: 68vh;
 }
 .recommend-ation-music{
-    height: 34vh;
+    height: 40vh;
     margin:0;
 }
 .new-shelves-music{
@@ -365,15 +365,10 @@ export default {
     z-index: 3;
     cursor: pointer;
 }
-.anticon-left-circle{
+.anticon-left-circle,.anticon-right-circle{
     position:absolute;
-    margin-top: 4%;
-    margin-left: 1%;
-}
-.anticon-right-circle{
-    position:absolute;
-    margin-top: 3.5%;
-    margin-left: 1.5%;
+    margin-top: 10vh;
+    margin-left: 1vw;
 }
 .recommend-singer{
     height: 100%;
@@ -388,6 +383,6 @@ export default {
     padding:3vh 0 1vw 1vw;
 }
 .recommend-user-login .ant-btn-danger{
-    margin-left: 32%;
+    margin-left: 6vw;
 }
 </style>

@@ -130,8 +130,8 @@ export default {
   padding: 0;
   position:fixed;
   right: 0;
-  width:86.9%;
-  min-width:30%;
+  width:84.7vw;
+  min-width:30vw;
 }
 .menu-sider{
   position:fixed;
@@ -139,9 +139,9 @@ export default {
   white-space: nowrap;
 }
 .menu-content{
-  margin-left:13.5%;
-  margin-top:6.5%;
-  width:86%;
+  margin-left:15vw;
+  margin-top:16vh;
+  width:84vw;
   height: 100%;
   overflow-y: auto;
 }

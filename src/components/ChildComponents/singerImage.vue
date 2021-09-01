@@ -46,7 +46,7 @@ export default{
 .singer-ul li{
     list-style-type: none;
     width:@width;
-    margin-left:5%;
+    margin-left:2vw;
     float: left;
 }
 .singer-ul li:nth-child(1){

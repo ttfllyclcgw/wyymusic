@@ -57,7 +57,7 @@ export default{
 .music-ul li{
     list-style-type: none;
     width: 140px;
-    margin-left:5%;
+    margin-left:2.2vw;
     float: left;
 }
 .music-image{
