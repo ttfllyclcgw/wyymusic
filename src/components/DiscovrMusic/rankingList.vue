@@ -92,11 +92,11 @@ export default {
 .left-rank-row,.right-rank-row{
     border: 1px solid #ccc;
     height: 100%;
-    margin-left: 5%;
+    margin-left: 5vw;
 }
 .left-singer-rank div .ant-list-split .ant-spin-nested-loading .ant-spin-container .ant-list-items .ant-list-item{
     border-bottom: 0px solid;
     padding: 5px 0;
-    margin-left: 5%;
+    margin-left: 1vw;
 }
 </style>

@@ -6,11 +6,11 @@
                 <h2>飙升榜</h2>
                 <a-icon type="history" /><span>最近更新:</span><span>08月31日(每天更新)</span>
                 <div>
-                    <a-button type="primary" icon="play-circle" :size="size">播放</a-button>
-                    <a-button type="primary" icon="plus" :size="size" class="rank-plus" style="font-size:12px" />
-                    <a-button icon="folder-add" :size="size">(111)</a-button>
-                    <a-button icon="rise" :size="size">(33333333)</a-button>
-                    <a-button icon="download" :size="size">下载</a-button>
+                    <a-button type="primary" icon="play-circle" >播放</a-button>
+                    <a-button type="primary" icon="plus"  class="rank-plus" style="font-size:12px" />
+                    <a-button icon="folder-add" >(111)</a-button>
+                    <a-button icon="rise" >(33333333)</a-button>
+                    <a-button icon="download" >下载</a-button>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
                     </a>
                 </template>
             </List>
-            <a-table :columns="rankColumns" :data-source="rankData" >
+            <a-table :columns="rankColumns" :data-source="rankData">
                 <a slot="name" slot-scope="text">{{ text }}</a>
             </a-table>
         </div>
@@ -48,32 +48,27 @@ export default{
                 {
                     title: '',
                     dataIndex: 'key',
-                    key: 'key',
                     width:30
                 },
                 {
                     title: '',
                     dataIndex: 'rank',
-                    key: 'rank',
                     width: 60,
                 },
                 {
                     title: '标题',
                     dataIndex: 'title',
-                    key: 'title',
                     ellipsis: true,
                 },
                 {
                     title: '时长',
                     dataIndex: 'duration',
-                    key: 'duration',
                     width: 130,
                     ellipsis: true,
                 },
                 {
                     title: '歌手',
                     dataIndex: 'singer',
-                    key: 'singer',
                     width: 230,
                     ellipsis: true,
                 },
