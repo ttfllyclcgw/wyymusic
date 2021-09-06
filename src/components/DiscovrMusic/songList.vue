@@ -9,7 +9,7 @@
                             <a href="#" class="v-list-title" style="cursor:auto">全部</a>
                         </template>
                         <template v-slot:listTab>
-                            <a-button class="song-list-columns-selectType" :click="typeShow()">
+                            <a-button class="song-list-columns-selectType" @click="typeShow()">
                                 选择分类<a-icon type="down" /></a-button>
                         </template>
                         <template v-slot:listMore>
@@ -48,7 +48,7 @@
                         </template>
                     </a-pagination>
                 </div>
-                <div class="song-type-select">
+                <div class="song-type-select" v-show="isShow">
                     <h3><a href="#"><em>全部风格</em></a></h3>
                     <dl class="f-cb">
                         <dt class="f-cb-dt"><a-icon type="global" />语种</dt>
@@ -412,6 +412,7 @@ export default {
             pageSize: 10,
             total: 50,
             /** 分类显示/隐藏 */
+            isShow: false,
         }
     },
     methods:{
@@ -419,8 +420,7 @@ export default {
             this.pageSize = pageSize;
         },
         typeShow(){
-            var element = document.querySelector('.song-type-select');
-            console.log(element,111)
+            this.isShow =! this.isShow;
         }
     }
 }
