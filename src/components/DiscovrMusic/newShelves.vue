@@ -161,17 +161,22 @@ export default {
             /** 分类显示/隐藏 */
             isShow: false,
         }
+    },
+    methods:{
+        onShowSizeChange(current, pageSize) {
+            this.pageSize = pageSize;
+        },
     }
 }
 </script>
 <style lang="less">
 .song-list-shelves{
-    height:55vh;
+    height:60vh;
 }
 .shelves-ul li{
-    margin-left:3vw;
+    margin-left:3.6vw;
 }
 .shelves-bottom .bottom-bf{
-    left: 6.5vw !important;
+    left: 7.5vw !important;
 }
 </style>

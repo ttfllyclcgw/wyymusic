@@ -90,7 +90,7 @@
                     <SingerImage>
                         <template v-slot:singerMusic>
                             <a-icon type="left-circle" theme="twoTone" two-tone-color="#C10D0C" />
-                            <ul class="singer-ul">
+                            <ul class="singer-ul shelves-music-ul">
                                 <li v-for="(item,index) in newShelvesMusic" :key="index">
                                     <div class="singer-image">
                                         <img :src="item.musicImg"/>
@@ -384,5 +384,8 @@ export default {
 }
 .recommend-user-login .ant-btn-danger{
     margin-left: 6vw;
+}
+.shelves-music-ul li:nth-child(1){
+    margin-left: 4vw;
 }
 </style>

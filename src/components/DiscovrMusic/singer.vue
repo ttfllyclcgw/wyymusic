@@ -315,4 +315,7 @@ export default {
 .right-singer-list li > a{
     color:@color;
 }
+.right-singer-list li > a:hover{
+    text-decoration: underline;
+}
 </style>

@@ -49,9 +49,6 @@ export default{
     margin-left:2vw;
     float: left;
 }
-.singer-ul li:nth-child(1){
-    margin-left: 6%;
-}
 .singer-image{
     position: relative;
     margin-top:3vh;
