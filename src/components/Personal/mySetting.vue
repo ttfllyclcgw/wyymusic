@@ -9,10 +9,12 @@
                     </template>
                 </List>
                 <ul class="my-setting-menu">
-                    <li><a href="#"><em>基本设置</em></a></li>
-                    <li><a href="#"><em>隐私设置</em></a></li>
+                    <li><router-link to="/personal/mySetting/userUpdate"><em>基本设置</em></router-link></li>
+                    <li><router-link to="/personal/mySetting/userSetting"><em>隐私设置</em></router-link></li>
                 </ul>
-                <userUpdate></userUpdate>
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
             </a-col>
         </a-row>
     </div>
@@ -20,12 +22,13 @@
 
 <script>
 import List from '../ChildComponents/List'
-import userUpdate from '../Personal/userUpdate'
 export default {
     components:{
         List,
-        userUpdate
     },
+    created(){
+        this.$router.push('/personal/mySetting/userUpdate')
+    }
 }
 </script>
 <style lang="less">

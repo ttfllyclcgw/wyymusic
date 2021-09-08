@@ -15,6 +15,8 @@ import CreatedPlaylist from '../components/MyMusic/createdPlaylist.vue'
 /** 个人中心 */
 import MyHomepage from '../components/Personal/myHomepage.vue'
 import MySetting from '../components/Personal/mySetting.vue'
+import userUpdate from '../components/Personal/userUpdate.vue'
+import userSetting from '../components/Personal/userSetting.vue'
 
 /** 朋友 */
 import Friend from '../components/friend.vue'
@@ -84,7 +86,19 @@ export default new Router({
         {
             path: '/personal/mySetting',
             name: '个人设置',
-            component: MySetting
+            component: MySetting,
+            children:[
+                {
+                    path: '/personal/mySetting/userUpdate',
+                    name: '基本设置',
+                    component: userUpdate
+                },
+                {
+                    path: '/personal/mySetting/userSetting',
+                    name: '隐私设置',
+                    component: userSetting
+                },
+            ]
         },
         {
             path: '/friend',
