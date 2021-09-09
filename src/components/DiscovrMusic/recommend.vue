@@ -107,13 +107,49 @@
                         </template>
                     </SingerImage>
                 </div>
-            </div>
-            
+            </div>  
         </div>
         <div class="right-recommend">
             <div class="recommend-user-login">
                 <p>登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机</p>
                 <a-button type="danger">用户登录</a-button>
+            </div>
+            <div class="user-data">
+                <img src="/109951166027478939.jpg" />
+                <div class="user-data-1">
+                    <h2>yyyy-xyezhu</h2>
+                    <a-icon type="man" :style="{fontSize:'16px',color:'#08c'}" />
+                </div>
+                <a-button type="primary">签到</a-button>
+                <!--<a-button type="primary" disabled>已签到</a-button>-->
+                <dataCount class="user-data-2" style="margin-top: 4vh;padding-left: 20px;"></dataCount>
+            </div>
+            <div class="user-login">
+                <div class="user-login-title">
+                    <div>手机号登录</div>
+                    <a-icon type="close" title="关闭窗体" />
+                </div>
+                <div class="user-login-form">
+                    <a-form :form="form">
+                        <a-form-item :label-col="formItemLayout.labelCol" :wrapper-col="formItemLayout.wrapperCol" label="手机号:">
+                            <a-input v-decorator="['userPhone',{ rules: [{message: '请输入手机号' }] },]"
+                                placeholder="请输入手机号"/>
+                        </a-form-item>
+                        <a-form-item :label-col="formItemLayout.labelCol" :wrapper-col="formItemLayout.wrapperCol" label="密码:">
+                            <a-input v-decorator="['userPassword',{ rules: [{message: '请输入密码' }] },]"
+                                placeholder="请输入密码"/>
+                        </a-form-item>
+                        <a-form-item :label-col="formHoldLayout.labelCol" :wrapper-col="formHoldLayout.wrapperCol">
+                            <a-checkbox :checked="checkNick">自动登录</a-checkbox>
+                        </a-form-item>
+                        <a-form-item :label-col="formTailLayout.labelCol" :wrapper-col="formTailLayout.wrapperCol">
+                            <a-button type="primary" @click="check" class="login-from-button">登录</a-button>
+                        </a-form-item>
+                    </a-form>
+                </div>
+                <div class="user-login-register">
+                    <a href="#">没有账号？免费注册&nbsp;&nbsp;></a>
+                </div>
             </div>
             <div class="recommend-singer">
                 <List :islistIcon="true" style="border-bottom:1px solid #ccc">
@@ -134,7 +170,7 @@
                                 </a-list-item-meta>
                             </a-list-item>
                         </a-list>
-                </template>
+                    </template>
                 </SingerList> 
             </div>
         </div>
@@ -145,15 +181,35 @@ import List from '../ChildComponents/List'
 import MusicImage from '../ChildComponents/musicImage'
 import SingerImage from '../ChildComponents/singerImage'
 import SingerList from '../ChildComponents/singerList'
+import dataCount from '../ChildComponents/dataCount'
+
+const formItemLayout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 12 },
+};
+const formHoldLayout = {
+    labelCol: { span: 4 },
+    wrapperCol: { span: 8, offset: 12 },
+}
+const formTailLayout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 8, offset: 7 },
+};
 export default {
     components:{
         List,
         MusicImage,
         SingerImage,
-        SingerList
+        SingerList,
+        dataCount
     },
     data(){
         return{
+            checkNick: false,
+            formItemLayout,
+            formHoldLayout,
+            formTailLayout,
+            form: this.$form.createForm(this, { name: 'dynamic_rule' }),
             hotRecommend:[
                 {
                     musicId:'1',
@@ -387,5 +443,84 @@ export default {
 }
 .shelves-music-ul li:nth-child(1){
     margin-left: 4vw;
+}
+.user-data{
+    height: 30vh;
+    background:#fafafa;
+    border-bottom: 2px solid #ccc;
+    display: none;
+}
+.user-data img{
+    width: 80px;
+    height: 80px;
+    border: 1px solid #ccc;
+    padding:2px;
+    margin: 3vh 0 0 1.5vw;
+}
+.user-data img,.user-data-1{
+    float: left;
+}
+.user-data-1{
+    margin-top: 3vh;
+}
+.user-data-1 h2{
+    font-size: 16px;
+}
+.user-data-1 h2,.user-data-1 .anticon{
+    float: left;
+    margin-left: 0.5vw;
+}
+.user-data-1 .anticon{
+    margin-top: 0.5vh;
+}
+.user-data .ant-btn{
+    margin: 1vh 0 0 1.5vw;
+}
+.user-login{
+    width: 41vw;
+    height: 50vh;
+    z-index: 9998;
+    position: fixed;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 5px 16px rgb(0 0 0 / 80%);
+    border: none;
+    left: 400px;
+    top: 150px;
+}
+.user-login-title{
+    height: 39px;
+    background: #2D2D2D;
+}
+.user-login-title div{
+    color: #fff;
+    margin-left: 1.5vw;
+    padding-top: 1.3vh;
+    width: 90%;
+}
+.user-login-title div,.user-login-title .anticon{
+    float: left;
+}
+.user-login-title .anticon{
+    color: #848484;
+    padding-top: 2vh;
+    cursor: pointer;
+}
+.user-login-form{
+    margin: 3vh 0 0 7vw;
+}
+.user-login-register{
+    background: #F7F7F7;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.user-login-register a{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    color: #999;
+    font-size: 12px;
 }
 </style>

@@ -7,20 +7,16 @@
                     <template v-slot:rankingTitle>
                         <div class="ranking-title">
                             <img src="/109951166027478939.jpg" />
-                            <div class="rktitle">
-                                <div>
+                            <div class="rktitle rktitle-home">
+                                <div class="rktitle-1">
                                     <h2>yyyy-xyezhu</h2>
-                                    <!--<a-icon type="man" />
-                                    <a-button icon="update-myhome" >编辑个人资料</a-button>-->
+                                    <a-icon type="man" :style="{fontSize:'18px',color:'#08c'}" />
+                                    <a-button icon="update-myhome" >编辑个人资料</a-button>
                                 </div>
-                                
-                                <a-icon type="history" /><span>最近更新:</span><span>08月31日(每天更新)</span>
-                                <div>
-                                    <a-button type="primary" icon="play-circle" >播放</a-button>
-                                    <a-button type="primary" icon="plus"  class="rank-plus" style="font-size:12px" />
-                                    <a-button icon="folder-add" >(111)</a-button>
-                                    <a-button icon="rise" >(33333333)</a-button>
-                                    <a-button icon="download" >下载</a-button>
+                                <dataCount></dataCount>
+                                <div class="rktitle-3">
+                                    <span>所在地区：</span><span>广东省 - 珠海市</span>
+                                    <span class="sep">年龄：</span><span>95后</span>
                                 </div>
                             </div>
                         </div>
@@ -58,8 +54,8 @@
                     <div class="hot-recommend-music my-create-song">
                         <MusicImage>
                             <template v-slot:recommend>
-                                <ul class="music-ul my-create-song-ul" v-if="hotRecommend.length">
-                                    <li v-for="(item,index) in hotRecommend" :key="index">
+                                <ul class="music-ul my-create-song-ul" v-if="createdSong.length">
+                                    <li v-for="item in createdSong" :key="item.musicId">
                                         <div class="music-image">
                                             <img :src="item.musicImg" />
                                             <a class="music-msk" :title="item.musicMsk" href="#"></a>
@@ -88,8 +84,8 @@
                     <div class="hot-recommend-music my-collect-song">
                         <MusicImage>
                             <template v-slot:recommend>
-                                <ul class="music-ul my-collect-song-ul" v-if="hotRecommend.length">
-                                    <li v-for="(item,index) in hotRecommend" :key="index">
+                                <ul class="music-ul my-collect-song-ul" v-if="collectSong.length">
+                                    <li v-for="item in collectSong" :key="item.musicId">
                                         <div class="music-image">
                                             <img :src="item.musicImg" />
                                             <a class="music-msk" :title="item.musicMsk" href="#"></a>
@@ -115,11 +111,13 @@
 import Ranking from '../ChildComponents/ranking'
 import List from '../ChildComponents/List'
 import MusicImage from '../ChildComponents/musicImage'
+import dataCount from '../ChildComponents/dataCount'
 export default {
     components:{
         Ranking,
         List,
-        MusicImage
+        MusicImage,
+        dataCount
     },
     data(){
         return{
@@ -149,7 +147,7 @@ export default {
             ],
             rankData:[
                 {
-                    key: <span class="data-key">1.</span>,
+                    key: <span class="data-key">1</span>,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />
                         <a href="#">致你</a><span>- (女生版)</span>
@@ -158,7 +156,7 @@ export default {
                     singer: <a href="#" class="data-singer">yihuik苡慧</a>,
                 },
                 {
-                    key: <span class="data-key">2.</span>,
+                    key: <span class="data-key">2</span>,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />
                         <a href="#">你注定会遇到我</a><span></span>
@@ -167,7 +165,7 @@ export default {
                     singer: <a href="#" class="data-singer">金玟岐</a>,
                 },
                 {
-                    key: <span class="data-key">3.</span>,
+                    key: <span class="data-key">3</span>,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />
                         <a href="#">我们好好的</a><span></span>
@@ -176,7 +174,7 @@ export default {
                     singer: <a href="#" class="data-singer">李荣浩</a>,
                 },
                 {
-                    key: <span class="data-key">4.</span>,
+                    key: <span class="data-key">4</span>,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />
                         <a href="#">不安（Live）</a><span></span>
@@ -185,7 +183,7 @@ export default {
                     singer: <a href="#" class="data-singer">陈红鲤</a>,
                 },
                 {
-                    key: <span class="data-key">5.</span>,
+                    key: <span class="data-key">5</span>,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />
                         <a href="#">生命線</a><span>- (游戏《月姬 -A piece of blue glass moon-》主题曲)</span>
@@ -194,7 +192,58 @@ export default {
                     singer: <a href="#" class="data-singer">ReoNa</a>,
                 },
             ],
-            hotRecommend:[
+            collectSong:[
+                {
+                    musicId:'1',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'24万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'2',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'3',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'4',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'5',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'24万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'6',
+                    musicImg:'/109951166027478939.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                },
+                {
+                    musicId:'7',
+                    musicImg:'/109951166283221642.jpg',
+                    musicMsk:'私人雷达|根据听歌记录为你打造',
+                    musicNb:'25万',
+                    musicLove:'猜你喜欢'
+                }
+            ],
+            createdSong:[
                 {
                     musicId:'1',
                     musicImg:'/109951166027478939.jpg',
@@ -252,5 +301,57 @@ export default {
 <style lang="less">
 .my-create-song-ul li,.my-collect-song-ul li{
     margin-left: 3vw;
+}
+.rktitle-home{
+    margin-top: 0;
+}
+.rktitle-1{
+    border-bottom: 1px solid #ccc;
+    height: 45px;
+}
+.rktitle-1 h2,.rktitle-1 .anticon,.rktitle-1 .ant-btn{
+    float: left;
+}
+.rktitle-1 .anticon{
+    margin-left: 1vw;
+    line-height: 40px;
+}
+.rktitle-1 .ant-btn{
+    float: right;
+}
+.rktitle-2{
+    height: 41px;
+    margin-bottom: 15px;
+    padding: 0;
+    margin-top: 1vh;
+}
+.rktitle-2,.rktitle-2:hover {
+    color: #666;
+}
+.rktitle-2 li > a{
+    display: inline-block;
+    position: relative;
+    zoom: 1;
+    color: #666;
+}
+.rktitle-2 li > a:hover{
+    color: #0066cc;
+}
+.rktitle-2 li > a strong{
+    display: block;
+    margin-top: -4px;
+    font-size: 24px;
+    font-weight: normal;
+}
+.rktitle-2 li > a span{
+    display: block;
+    text-indent: 2px;
+    font-size: 12px;
+}
+.rktitle-3 span{
+    font-size: 12px;
+}
+.rktitle-3 > .sep{
+    margin-left: 2vw;
 }
 </style>

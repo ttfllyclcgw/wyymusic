@@ -26,9 +26,6 @@ export default {
     components:{
         List,
     },
-    created(){
-        this.$router.push('/personal/mySetting/userUpdate')
-    }
 }
 </script>
 <style lang="less">

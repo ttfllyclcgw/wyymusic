@@ -48,7 +48,7 @@
             <router-link to="/personal/myHomepage">我的主页</router-link>
           </a-menu-item>
           <a-menu-item key="13">
-            <router-link to="/personal/mySetting">个人设置</router-link>
+            <router-link to="/personal/mySetting/userUpdate">个人设置</router-link>
           </a-menu-item>
         </a-sub-menu>
       </a-menu>
