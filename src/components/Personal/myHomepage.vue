@@ -36,7 +36,7 @@
                                     <a href="#">最近一周</a>
                                 </template>
                             </List>
-                            <a-table :columns="rankColumns" :data-source="rankData">
+                            <a-table :columns="rankColumns" :row-key="record=>record.key" :data-source="rankData">
                                 <a slot="name" slot-scope="text">{{ text }}</a>
                             </a-table>
                         </div>
@@ -147,7 +147,7 @@ export default {
             ],
             rankData:[
                 {
-                    key: <span class="data-key">1</span>,
+                    key: 1,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />
                         <a href="#">致你</a><span>- (女生版)</span>
@@ -156,7 +156,7 @@ export default {
                     singer: <a href="#" class="data-singer">yihuik苡慧</a>,
                 },
                 {
-                    key: <span class="data-key">2</span>,
+                    key: 2,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />
                         <a href="#">你注定会遇到我</a><span></span>
@@ -165,7 +165,7 @@ export default {
                     singer: <a href="#" class="data-singer">金玟岐</a>,
                 },
                 {
-                    key: <span class="data-key">3</span>,
+                    key: 3,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />
                         <a href="#">我们好好的</a><span></span>
@@ -174,7 +174,7 @@ export default {
                     singer: <a href="#" class="data-singer">李荣浩</a>,
                 },
                 {
-                    key: <span class="data-key">4</span>,
+                    key: 4,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />
                         <a href="#">不安（Live）</a><span></span>
@@ -183,7 +183,7 @@ export default {
                     singer: <a href="#" class="data-singer">陈红鲤</a>,
                 },
                 {
-                    key: <span class="data-key">5</span>,
+                    key: 5,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />
                         <a href="#">生命線</a><span>- (游戏《月姬 -A piece of blue glass moon-》主题曲)</span>

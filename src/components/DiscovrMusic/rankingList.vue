@@ -11,12 +11,12 @@
                     </List>
                     <SingerList>
                         <template v-slot:singerLists>
-                            <a-list item-layout="horizontal" :data-source="data">
+                            <a-list item-layout="horizontal" :data-source="featuresList">
                                 <a-list-item slot="renderItem" slot-scope="item">
                                     <a-list-item-meta :description="item.description">
                                         <!--<a slot="title" href="#" :style="{fontSize:`${titleFontSize}px`}">{{ item.title }}</a>-->
                                         <a slot="title" href="#">{{ item.title }}</a>
-                                        <a-avatar  slot="avatar" shape="square" :size="43"  src="/109951166027478939.jpg"/>
+                                        <a-avatar  slot="avatar" shape="square" :size="43"  :src="item.featuresImg"/>
                                     </a-list-item-meta>
                                 </a-list-item>
                             </a-list>
@@ -31,11 +31,11 @@
                     </List>
                     <SingerList>
                         <template v-slot:singerLists>
-                            <a-list item-layout="horizontal" :data-source="data">
+                            <a-list item-layout="horizontal" :data-source="worldList">
                                 <a-list-item slot="renderItem" slot-scope="item">
                                     <a-list-item-meta :description="item.description">
                                         <a slot="title" href="#">{{ item.title }}</a>
-                                        <a-avatar  slot="avatar" shape="square" :size="43"  src="/109951166027478939.jpg"/>
+                                        <a-avatar  slot="avatar" shape="square" :size="43"  :src="item.worldImg"/>
                                     </a-list-item-meta>
                                 </a-list-item>
                             </a-list>
@@ -76,7 +76,7 @@
                                     </a>
                                 </template>
                             </List>
-                            <a-table :columns="rankColumns" :data-source="rankData">
+                            <a-table :columns="rankColumns" :row-key="record=>record.key" :data-source="rankData">
                                 <a slot="name" slot-scope="text">{{ text }}</a>
                             </a-table>
                         </div>
@@ -99,27 +99,142 @@ export default {
     },
     data(){
         return{
-            data:[
+            featuresList:[
                 {
+                    key: 1,
                     title: '飙升榜',
-                    description:'每天更新'
+                    description:'每天更新',
+                    featuresImg:'/109951166027478939.jpg'
                 },
                 {
+                    key: 2,
                     title: '新歌榜',
-                    description:'每天更新'
+                    description:'每天更新',
+                    featuresImg:'/109951166027478939.jpg'
                 },
                 {
+                    key: 3,
                     title: '原创榜',
-                    description:'每周四更新'
+                    description:'每周四更新',
+                    featuresImg:'/109951166027478939.jpg'
                 },
                 {
+                    key: 4,
                     title: '热歌榜',
-                    description:'每天更新'
+                    description:'每天更新',
+                    featuresImg:'/109951166027478939.jpg'
+                }
+            ],
+            worldList:[
+                {
+                    key: 1,
+                    title: '黑胶VIP爱听榜',
+                    description:'每天更新',
+                    worldImg:'/109951166027478939.jpg'
                 },
                 {
-                    title: '黑胶VIP爱听榜',
-                    description:'每周四更新'
+                    key: 2,
+                    title: '云音乐说唱榜',
+                    description:'每天更新',
+                    worldImg:'/109951166027478939.jpg'
                 },
+                {
+                    key: 3,
+                    title: '云音乐古典榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 4,
+                    title: '云音乐电音榜',
+                    description:'每天更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 5,
+                    title: '音乐ACG榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 6,
+                    title: '云音乐韩语榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 7,
+                    title: '云音乐国电榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 8,
+                    title: 'UK排行榜周榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 9,
+                    title: '美国Billboard榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 10,
+                    title: 'Beatport全球电子舞曲榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 11,
+                    title: 'KTV唛榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 12,
+                    title: '日本Oricon榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 13,
+                    title: '云音乐欧美热歌榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 14,
+                    title: '云音乐欧美新歌榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 15,
+                    title: '法国 NRJ Vos Hits 周榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 16,
+                    title: '云音乐ACG动画榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 17,
+                    title: '云音乐ACG游戏榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                {
+                    key: 18,
+                    title: '云音乐ACG VOCALOID榜',
+                    description:'每周四更新',
+                    worldImg:'/109951166027478939.jpg'
+                },
+                
             ],
             rankColumns:[
                 {
@@ -152,7 +267,7 @@ export default {
             ],
             rankData:[
                 {
-                    key: <span class="data-key">1</span>,
+                    key: 1,
                     rank: <div class="data-rank"><a-icon type="arrow-up" />8</div>,
                     title: <div class="data-title">
                         <img src="/109951166027478939.jpg" />
@@ -163,7 +278,7 @@ export default {
                     singer: <a href="#" class="data-singer">yihuik苡慧</a>,
                 },
                 {
-                    key: <span class="data-key">2</span>,
+                    key: 2,
                     rank: <div class="data-rank"><a-icon type="arrow-up" />8</div>,
                     title: <div class="data-title">
                         <img src="/109951166027478939.jpg" />
@@ -174,7 +289,7 @@ export default {
                     singer: <a href="#" class="data-singer">金玟岐</a>,
                 },
                 {
-                    key: <span class="data-key">3</span>,
+                    key: 3,
                     rank: <div class="data-rank">new</div>,
                     title: <div class="data-title">
                         <img src="/109951166027478939.jpg" />
@@ -185,7 +300,7 @@ export default {
                     singer: <a href="#" class="data-singer">李荣浩</a>,
                 },
                 {
-                    key: <span class="data-key">4</span>,
+                    key: 4,
                     rank: <div class="data-rank">new</div>,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />
@@ -195,7 +310,7 @@ export default {
                     singer: <a href="#" class="data-singer">陈红鲤</a>,
                 },
                 {
-                    key: <span class="data-key">5</span>,
+                    key: 5,
                     rank: <div class="data-rank">new</div>,
                     title: <div class="data-title">
                         <a-icon type="play-circle" />

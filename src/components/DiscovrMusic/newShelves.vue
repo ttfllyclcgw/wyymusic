@@ -91,6 +91,7 @@ export default {
     },
     data(){
         return{
+            /** 热门新碟/全部新碟 */
             hotShelves:[
                 {
                     musicId:'1',
@@ -157,9 +158,7 @@ export default {
             pageSizeOptions: ['10', '20', '30', '40', '50'],
             current: 1,
             pageSize: 10,
-            total: 50,
-            /** 分类显示/隐藏 */
-            isShow: false,
+            total: 50
         }
     },
     methods:{

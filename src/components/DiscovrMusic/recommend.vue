@@ -112,7 +112,7 @@
         <div class="right-recommend">
             <div class="recommend-user-login">
                 <p>登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机</p>
-                <a-button type="danger">用户登录</a-button>
+                <a-button type="danger" @click="loginIsShow">用户登录</a-button>
             </div>
             <div class="user-data">
                 <img src="/109951166027478939.jpg" />
@@ -124,10 +124,10 @@
                 <!--<a-button type="primary" disabled>已签到</a-button>-->
                 <dataCount class="user-data-2" style="margin-top: 4vh;padding-left: 20px;"></dataCount>
             </div>
-            <div class="user-login">
+            <div class="user-login" v-show="loginShow">
                 <div class="user-login-title">
                     <div>手机号登录</div>
-                    <a-icon type="close" title="关闭窗体" />
+                    <a-icon type="close" title="关闭窗体" @click="loginIsShow" />
                 </div>
                 <div class="user-login-form">
                     <a-form :form="form">
@@ -140,10 +140,10 @@
                                 placeholder="请输入密码"/>
                         </a-form-item>
                         <a-form-item :label-col="formHoldLayout.labelCol" :wrapper-col="formHoldLayout.wrapperCol">
-                            <a-checkbox :checked="checkNick">自动登录</a-checkbox>
+                            <a-checkbox >自动登录</a-checkbox>
                         </a-form-item>
                         <a-form-item :label-col="formTailLayout.labelCol" :wrapper-col="formTailLayout.wrapperCol">
-                            <a-button type="primary" @click="check" class="login-from-button">登录</a-button>
+                            <a-button type="primary" class="login-from-button">登录</a-button>
                         </a-form-item>
                     </a-form>
                 </div>
@@ -183,6 +183,7 @@ import SingerImage from '../ChildComponents/singerImage'
 import SingerList from '../ChildComponents/singerList'
 import dataCount from '../ChildComponents/dataCount'
 
+/** 登陆表单样式属性 */
 const formItemLayout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 12 },
@@ -205,11 +206,15 @@ export default {
     },
     data(){
         return{
+            /** 登陆表单样式属性 */
             checkNick: false,
             formItemLayout,
             formHoldLayout,
             formTailLayout,
             form: this.$form.createForm(this, { name: 'dynamic_rule' }),
+            /** 登陆窗体显示/隐藏 */
+            loginShow: false,
+            /** 热门推荐 */
             hotRecommend:[
                 {
                     musicId:'1',
@@ -282,6 +287,7 @@ export default {
                     musicLove:'猜你喜欢'
                 }
             ],
+            /** 个性推荐 */
             recommendAtion:[
                 {
                     musicId:'1',
@@ -319,6 +325,7 @@ export default {
                     musicLove:'猜你喜欢'
                 },
             ],
+            /** 新碟上架 */
             newShelvesMusic:[
                 {
                     musicId:'1',
@@ -357,6 +364,7 @@ export default {
                     musicSinger:'陈奕迅'
                 },
             ],
+            /** 入驻歌手 */
             data:[
                 {
                     title: '张惠妹aMEl',
@@ -380,6 +388,11 @@ export default {
                 },
             ]
         }
+    },
+    methods:{
+        loginIsShow(){
+            this.loginShow =! this.loginShow;
+        },
     }
 }
 </script>

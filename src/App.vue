@@ -48,7 +48,7 @@
             <router-link to="/personal/myHomepage">我的主页</router-link>
           </a-menu-item>
           <a-menu-item key="13">
-            <router-link to="/personal/mySetting/userUpdate">个人设置</router-link>
+            <router-link to="/personal/mySetting">个人设置</router-link>
           </a-menu-item>
         </a-sub-menu>
       </a-menu>
@@ -132,6 +132,7 @@ export default {
   right: 0;
   width:84.7vw;
   min-width:30vw;
+  z-index: 3
 }
 .menu-sider{
   position:fixed;
@@ -144,11 +145,10 @@ export default {
   width:84vw;
   height: 100%;
   overflow-y: auto;
+  z-index: 2
 }
 .menu-footer{
   text-align: center;
   padding: 0;
 }
-
-
 </style>
