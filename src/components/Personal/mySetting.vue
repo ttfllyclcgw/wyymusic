@@ -182,7 +182,7 @@ export default {
 <style lang="less">
 .my-setting{
     position: relative;
-    height: 110vh;
+    height: 105vh;
 }
 .rank-tabs-card{
     position: absolute;
