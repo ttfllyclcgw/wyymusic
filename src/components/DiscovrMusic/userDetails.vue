@@ -5,18 +5,22 @@
             <a-col :span="20" class="right-rank-row">
                 <Ranking>
                     <template v-slot:rankingTitle>
-                        <div class="ranking-title">
+                        <div class="ranking-title user-details">
                             <img src="/109951166027478939.jpg" />
                             <div class="rktitle rktitle-home">
                                 <div class="rktitle-1">
                                     <h2>yyyy-xyezhu</h2>
                                     <a-icon type="man" :style="{fontSize:'18px',color:'#08c'}" />
-                                    <a-button class="update-myhome" >编辑个人资料</a-button>
+                                    <a-button class="follow" type="primary"><a-icon type="plus" />关注</a-button>
+                                    <a-button class="send"><a-icon type="mail" />发私信</a-button>
                                 </div>
                                 <dataCount></dataCount>
                                 <div class="rktitle-3">
                                     <span>所在地区：</span><span>广东省 - 珠海市</span>
                                     <span class="sep">年龄：</span><span>95后</span>
+                                </div>
+                                <div class="rktitle-4">
+                                    <span>介绍：</span><span>不用害怕前路漫漫 同行的人不会走散</span>
                                 </div>
                             </div>
                         </div>
@@ -31,9 +35,6 @@
                                     <a href="#" style="font-size:12px;margin-left:1vw;margin-top:0.2vh;cursor:default;textDecoration:none;">
                                         累积听歌<em>22190</em>首
                                     </a>
-                                </template>
-                                <template v-slot:listMore>
-                                    <a href="#">最近一周</a>
                                 </template>
                             </List>
                             <a-table :columns="rankColumns" :row-key="record=>record.key" :data-source="rankData">
@@ -299,59 +300,18 @@ export default {
 }
 </script>
 <style lang="less">
-.my-create-song-ul li,.my-collect-song-ul li{
-    margin-left: 3vw;
+.user-details{
+    height: 28vh;
 }
-.rktitle-home{
-    margin-top: 0;
+.follow,.send{
+    padding: 0 12px 0 0;
 }
-.rktitle-1{
-    border-bottom: 1px solid #ccc;
-    height: 45px;
+.follow .anticon,.send .anticon{
+    margin-top: 0.6vh;
 }
-.rktitle-1 h2,.rktitle-1 .anticon,.rktitle-1 .ant-btn{
-    float: left;
-}
-.rktitle-1 .anticon{
-    margin-left: 1vw;
-    line-height: 40px;
-}
-.rktitle-1 .ant-btn{
-    float: right;
-}
-.rktitle-2{
-    height: 41px;
-    margin-bottom: 15px;
-    padding: 0;
-    margin-top: 1vh;
-}
-.rktitle-2,.rktitle-2:hover {
-    color: #666;
-}
-.rktitle-2 li > a{
-    display: inline-block;
-    position: relative;
-    zoom: 1;
-    color: #666;
-}
-.rktitle-2 li > a:hover{
-    color: #0066cc;
-}
-.rktitle-2 li > a strong{
-    display: block;
-    margin-top: -4px;
-    font-size: 24px;
-    font-weight: normal;
-}
-.rktitle-2 li > a span{
-    display: block;
-    text-indent: 2px;
+.rktitle-4{
     font-size: 12px;
-}
-.rktitle-3 span{
-    font-size: 12px;
-}
-.rktitle-3 > .sep{
-    margin-left: 2vw;
+    position: absolute;
+    left: 2vw;
 }
 </style>

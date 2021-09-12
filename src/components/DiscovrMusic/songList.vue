@@ -23,7 +23,7 @@
                                     <li v-for="(item,index) in songlist" :key="index">
                                         <div class="music-image">
                                             <img :src="item.musicImg" />
-                                            <a class="music-msk" :title="item.musicMsk" href="#"></a>
+                                            <router-link to="/discoverMusic/list/details" class="music-msk" :title="item.musicMsk"></router-link>
                                             <div class="music-bottom">
                                                 <a-icon class="bottom-ej" type="customer-service" />
                                                 <span class="nb">{{item.musicNb}}</span>
@@ -146,6 +146,7 @@
                 </div>
             </a-col>
         </a-row>
+        <router-view></router-view>
     </div>
 </template>
 

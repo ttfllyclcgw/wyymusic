@@ -44,13 +44,13 @@ export default{
 .ant-btn{
     margin-left: 0.3%;
 }
-.data-key,.data-title,.data-rank,.data-duration,.data-singer{
+.data-key,.data-title,.data-rank,.data-duration,.data-singer,.data-shelves{
     font-size: 12px;
 }
-.data-singer,.data-title a{
+.data-singer,.data-shelves,.data-title a{
     color:rgba(0, 0, 0, 0.65);
 }
-.data-singer:hover,.data-title a:hover{
+.data-singer:hover,.data-shelves:hover,.data-title a:hover{
     color:rgba(0, 0, 0, 0.65);
     text-decoration: underline;
 }
