@@ -127,7 +127,8 @@
                                 <li v-for="(item,index) in singerTopTen" :key="index" style="width:118px;">
                                     <div class="music-image" >
                                         <img :src="item.musicImg" style="width:118px;height:110px;"  />
-                                        <a class="music-msk" :title="item.musicMsk" href="#"></a>
+                                        <router-link to="/discoverMusic/singer/details" class="music-msk" 
+                                            :title="item.musicMsk"></router-link>
                                     </div>
                                     <p class="music-dec" style="width:118px;"><a href="#">{{item.musicMsk}}</a></p>
                                 </li>
@@ -144,6 +145,7 @@
                 </div>
             </a-col>
         </a-row>
+        <router-view></router-view>
     </div>
 </template>
 

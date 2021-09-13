@@ -186,7 +186,7 @@ export default {
 }
 .rank-tabs-card{
     position: absolute;
-    right: 0vw;
+    right: 6vw;
     top: 2vh;
 }
 .ant-tabs-tab{

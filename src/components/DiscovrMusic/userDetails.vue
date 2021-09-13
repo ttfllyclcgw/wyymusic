@@ -301,7 +301,7 @@ export default {
 </script>
 <style lang="less">
 .user-details{
-    height: 28vh;
+    height: 30vh;
 }
 .follow,.send{
     padding: 0 12px 0 0;

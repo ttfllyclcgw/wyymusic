@@ -128,7 +128,7 @@ export default {
                 {
                     title: '标题',
                     dataIndex: 'title',
-                    width: 300,
+                    width: 250,
                     ellipsis: true,
                 },
                 {
@@ -140,13 +140,13 @@ export default {
                 {
                     title: '歌手',
                     dataIndex: 'singer',
-                    width: 150,
+                    width: 130,
                     ellipsis: true,
                 },
                 {
                     title: '专辑',
                     dataIndex: 'shelves',
-                    width: 200,
+                    width: 170,
                     ellipsis: true,
                 },
             ],
@@ -276,7 +276,7 @@ export default {
 </script>
 <style lang="less">
 .songlist-details{
-    height: 35vh;
+    height: 37vh;
 }
 .details-type{
     width:50px;
@@ -292,7 +292,7 @@ export default {
     top: 25px;
 }
 .songlist-details h2{
-    margin-left: 4vw;
+    margin-left: 4.5vw;
 }
 .rktitle .songlist-details-user,.rktitle .songlist-details-user + span{
     line-height: 35px;
@@ -320,17 +320,17 @@ export default {
 .songlist-details-descriptions{
     position: absolute;
     left: 2vw;
-    top: 25vh;
+    top: 28vh;
 }
 .songlist-details-tag span,.songlist-details-descriptions span{
     font-size: 12px;
 }
 .love-songlist{
-    height: 20vh;
+    height: 24vh;
 }
 .love-songlist-user{
     clear: both;
-    height: 20vh;
+    height: 23vh;
     padding: 0;
 }
 .love-songlist-user li{
@@ -339,7 +339,7 @@ export default {
     width: 40px;
     height: 40px;
     float: left;
-    margin-left:0.6vw;
+    margin-left:0.4vw;
     margin-top:1vh;
     padding: 0;
 }

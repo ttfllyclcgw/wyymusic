@@ -19,10 +19,11 @@ import MySetting from '../components/Personal/mySetting.vue'
 /** 朋友 */
 import Friend from '../components/friend.vue'
 
-/** 歌单、歌手、用户详情 */
+/** 歌单、歌手、用户、音乐详情 */
 import SongListDetails from '../components/DiscovrMusic/songListDetails.vue'
 import SingerDetails from '../components/DiscovrMusic/singerDetails.vue'
 import userDetails from '../components/DiscovrMusic/userDetails.vue'
+import Music from '../components/DiscovrMusic/music.vue'
 
 //解决连续点击多次路由报错（必须加在use前）
 // eslint-disable-next-line no-irregular-whitespace
@@ -110,6 +111,11 @@ export default new Router({
             path: '/discoverMusic/userDetails',
             name: '用户详情',
             component: userDetails
+        },
+        {
+            path: '/music',
+            name: '音乐详情',
+            component: Music
         }
     ]
 })
