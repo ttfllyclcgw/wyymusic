@@ -17,7 +17,8 @@
                         </template>
                     </List>
                     <div class="song-list-music">
-                        <MusicImage>
+                        <MusicImage :listData="songlist"></MusicImage>
+                        <!--<MusicImage>
                             <template v-slot:recommend>
                                 <ul class="music-ul" v-if="songlist.length">
                                     <li v-for="(item,index) in songlist" :key="index">
@@ -35,7 +36,7 @@
                                     </li>
                                 </ul>  
                             </template>
-                        </MusicImage>
+                        </MusicImage>-->
                     </div>    
                 </div>
                 <div class="song-list-page">
