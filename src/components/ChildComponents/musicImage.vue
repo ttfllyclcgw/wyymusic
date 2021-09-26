@@ -65,6 +65,7 @@ export default{
     z-index: 3;
     line-height: 28px;
     vertical-align: middle;
+    display: block;
 }
 .bottom-ej{
     margin-left: 5%;

@@ -18,25 +18,6 @@
                     </List>
                     <div class="song-list-music">
                         <MusicImage :listData="songlist"></MusicImage>
-                        <!--<MusicImage>
-                            <template v-slot:recommend>
-                                <ul class="music-ul" v-if="songlist.length">
-                                    <li v-for="(item,index) in songlist" :key="index">
-                                        <div class="music-image">
-                                            <img :src="item.musicImg" />
-                                            <router-link to="/discoverMusic/list/details" class="music-msk" :title="item.musicMsk"></router-link>
-                                            <div class="music-bottom">
-                                                <a-icon class="bottom-ej" type="customer-service" />
-                                                <span class="nb">{{item.musicNb}}</span>
-                                                <a-icon class="bottom-bf" title="播放" type="play-circle" />
-                                            </div>
-                                        </div>
-                                        <p  class="music-dec"><a href="#">{{item.musicMsk}}</a></p>
-                                        <p  class="music-love"><em :title="item.musicLove">{{item.musicLove}}</em></p>
-                                    </li>
-                                </ul>  
-                            </template>
-                        </MusicImage>-->
                     </div>    
                 </div>
                 <div class="song-list-page">

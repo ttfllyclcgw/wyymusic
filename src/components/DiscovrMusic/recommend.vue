@@ -24,24 +24,7 @@
                     </template>
                 </List>
                 <div class="hot-recommend-music">
-                    <MusicImage>
-                        <template v-slot:recommend>
-                            <ul class="music-ul" v-if="hotRecommend.length">
-                                <li v-for="(item,index) in hotRecommend" :key="index">
-                                    <div class="music-image">
-                                        <img :src="item.musicImg" />
-                                        <a class="music-msk" :title="item.musicMsk" href="#"></a>
-                                        <div class="music-bottom">
-                                            <a-icon class="bottom-ej" type="customer-service" />
-                                            <span class="nb">{{item.musicNb}}</span>
-                                            <a-icon class="bottom-bf" title="播放" type="play-circle" />
-                                        </div>
-                                    </div>
-                                    <p class="music-dec"><a href="#">{{item.musicMsk}}</a></p>
-                                </li>
-                            </ul>  
-                        </template>
-                    </MusicImage>
+                    <MusicImage :listData="hotRecommend"></MusicImage>
                 </div>
             </div>
             <div class="recommend-ation">
@@ -55,25 +38,7 @@
                     </template>
                 </List>
                 <div class="recommend-ation-music">
-                    <MusicImage>
-                        <template v-slot:recommend>
-                            <ul class="music-ul" v-if="recommendAtion.length">
-                                <li v-for="(item,index) in recommendAtion" :key="index">
-                                    <div class="music-image">
-                                        <img :src="item.musicImg" />
-                                        <a class="music-msk" :title="item.musicMsk" href="#"></a>
-                                        <div class="music-bottom">
-                                            <a-icon class="bottom-ej" type="customer-service" />
-                                            <span class="nb">{{item.musicNb}}</span>
-                                            <a-icon class="bottom-bf" title="播放" type="play-circle" />
-                                        </div>
-                                    </div>
-                                    <p  class="music-dec"><a href="#">{{item.musicMsk}}</a></p>
-                                    <p  class="music-love"><em :title="item.musicLove">{{item.musicLove}}</em></p>
-                                </li>
-                            </ul>  
-                        </template>
-                    </MusicImage>
+                    <MusicImage :listData="recommendAtion"></MusicImage>
                 </div>
             </div>
             <div class="new-shelves">
@@ -420,7 +385,7 @@ export default {
 .hot-recommend-music{
     border: 0px solid;
     margin:0;
-    height: 68vh;
+    height: 75vh;
 }
 .recommend-ation-music{
     height: 40vh;
