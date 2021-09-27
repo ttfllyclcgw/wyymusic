@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ul class="music-ul" v-if="listData.length" :listData="newData">
+        <ul class="music-ul" v-if="listData.length" :listData="listData">
             <li v-for="(item,index) in listData" :key="index">
                 <div class="music-image">
                     <img :src="item.musicImg" />

@@ -95,20 +95,20 @@
                     <a-icon type="close" title="关闭窗体" @click="loginIsShow" />
                 </div>
                 <div class="user-login-form">
-                    <a-form :form="form">
+                    <a-form :form="form" @submit="handleSubmit">
                         <a-form-item :label-col="formItemLayout.labelCol" :wrapper-col="formItemLayout.wrapperCol" label="手机号:">
-                            <a-input v-decorator="['userPhone',{ rules: [{message: '请输入手机号' }] },]"
+                            <a-input v-decorator="['userphone',{ rules: [{message: '请输入手机号' }] },]"
                                 placeholder="请输入手机号"/>
                         </a-form-item>
                         <a-form-item :label-col="formItemLayout.labelCol" :wrapper-col="formItemLayout.wrapperCol" label="密码:">
-                            <a-input v-decorator="['userPassword',{ rules: [{message: '请输入密码' }] },]"
+                            <a-input type="password" v-decorator="['userpassword',{ rules: [{message: '请输入密码' }] },]"
                                 placeholder="请输入密码"/>
                         </a-form-item>
                         <a-form-item :label-col="formHoldLayout.labelCol" :wrapper-col="formHoldLayout.wrapperCol">
                             <a-checkbox >自动登录</a-checkbox>
                         </a-form-item>
                         <a-form-item :label-col="formTailLayout.labelCol" :wrapper-col="formTailLayout.wrapperCol">
-                            <a-button type="primary" class="login-from-button">登录</a-button>
+                            <a-button type="primary" html-type="submit" class="login-from-button">登录</a-button>
                         </a-form-item>
                     </a-form>
                 </div>
@@ -147,6 +147,7 @@ import MusicImage from '../ChildComponents/musicImage'
 import SingerImage from '../ChildComponents/singerImage'
 import SingerList from '../ChildComponents/singerList'
 import dataCount from '../ChildComponents/dataCount'
+import axios from '../../utils/services'
 
 /** 登陆表单样式属性 */
 const formItemLayout = {
@@ -169,6 +170,9 @@ export default {
         SingerList,
         dataCount
     },
+    beforeCreate(){
+        this.form = this.$form.createForm(this, { name: 'normal_login' })
+    },
     data(){
         return{
             /** 登陆表单样式属性 */
@@ -176,7 +180,6 @@ export default {
             formItemLayout,
             formHoldLayout,
             formTailLayout,
-            form: this.$form.createForm(this, { name: 'dynamic_rule' }),
             /** 登陆窗体显示/隐藏 */
             loginShow: false,
             /** 热门推荐 */
@@ -355,8 +358,33 @@ export default {
         }
     },
     methods:{
+        /** 打开登录窗口 */
         loginIsShow(){
             this.loginShow =! this.loginShow;
+        },
+        /** 登录 */
+        handleSubmit(e){
+            e.preventDefault();
+            this.form.validateFields((err,values)=>{
+                if(!err){
+                    let params = {
+                        phone: values.userphone,
+                        password: values.userpassword
+                    }
+                    let that = this;
+                    /** 登录信息 */
+                    axios.get('/login/cellphone',{params})
+                        .then(function(response){
+                            if(response.data.code === 200){
+                                that.$message.success('登录成功');
+                            }else if(response.data.code === 400 || response.data.code === 502){
+                                that.$message.warning('账号或密码错误');
+                            }
+                        }).catch(function(error){
+                            that.$message.error('服务未启动');
+                        })
+                }
+            })
         },
     }
 }
