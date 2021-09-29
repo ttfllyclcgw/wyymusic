@@ -24,7 +24,24 @@
                     </template>
                 </List>
                 <div class="hot-recommend-music">
-                    <MusicImage :listData="hotRecommend"></MusicImage>
+                    <MusicImage>
+                        <template v-slot:recommend>
+                            <ul class="music-ul recommend-ul" v-if="hotRecommend.length">
+                                <li v-for="(item,index) in hotRecommend" :key="index">
+                                    <div class="music-image">
+                                        <img :src="item.coverImgUrl" class="music-img" />
+                                        <a class="music-msk" :title="item.name" href="#"></a>
+                                        <div class="music-bottom">
+                                            <a-icon class="bottom-ej" type="customer-service" />
+                                            <span class="nb">{{item.playCount}}</span>
+                                            <a-icon class="bottom-bf" title="播放" type="play-circle" />
+                                        </div>
+                                    </div>
+                                    <p class="music-dec"><a href="#" :title="item.name">{{item.name}}</a></p>
+                                </li>
+                            </ul>
+                        </template>
+                    </MusicImage>
                 </div>
             </div>
             <div class="recommend-ation">
@@ -38,7 +55,25 @@
                     </template>
                 </List>
                 <div class="recommend-ation-music">
-                    <MusicImage :listData="recommendAtion"></MusicImage>
+                    <!--<MusicImage>
+                        <template v-slot:recommend>
+                            <ul class="music-ul" v-if="listData.length">
+                                <li v-for="(item,index) in listData" :key="index">
+                                    <div class="music-image">
+                                        <img :src="item.coverImgUrl" />
+                                        <a class="music-msk" :title="item.name" href="#"></a>
+                                        <div class="music-bottom">
+                                            <a-icon class="bottom-ej" type="customer-service" />
+                                            <span class="nb">{{item.playCount}}</span>
+                                            <a-icon class="bottom-bf" title="播放" type="play-circle" />
+                                        </div>
+                                    </div>
+                                    <p class="music-dec"><a href="#">{{item.name}}</a></p>
+                                    <p class="music-love"><em :title="item.musicLove">{{item.musicLove}}</em></p>
+                                </li>
+                            </ul>
+                        </template>
+                    </MusicImage>-->
                 </div>
             </div>
             <div class="new-shelves">
@@ -75,18 +110,20 @@
             </div>  
         </div>
         <div class="right-recommend">
-            <div class="recommend-user-login">
+            <div class="recommend-user-login" v-if="userDataShow === 'login'">
                 <p>登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机</p>
                 <a-button type="danger" @click="loginIsShow">用户登录</a-button>
             </div>
-            <div class="user-data">
-                <img src="/109951166027478939.jpg" />
+            <div class="user-data" v-else>
+                <img :src="userItem[0].avatarUrl" />
                 <div class="user-data-1">
-                    <h2>yyyy-xyezhu</h2>
-                    <a-icon type="man" :style="{fontSize:'16px',color:'#08c'}" />
+                    <h2>{{userItem[0].nickname}}</h2>
+                    <a-icon type="man" v-if="userItem[0].gender === 1" :style="{fontSize:'16px',color:'#08c'}" />
+                    <a-icon type="woman" v-else-if="userItem[0].gender === 0" :style="{fontSize:'16px',color:'hotpink'}" />
+                    <a-icon v-else  />
                 </div>
-                <a-button type="primary">签到</a-button>
-                <!--<a-button type="primary" disabled>已签到</a-button>-->
+                <a-button type="primary" @click="signIn" v-if="sign === 'in'">签到</a-button>
+                <a-button type="primary" disabled v-else>已签到</a-button>
                 <dataCount class="user-data-2" style="margin-top: 4vh;padding-left: 20px;"></dataCount>
             </div>
             <div class="user-login" v-show="loginShow">
@@ -148,6 +185,7 @@ import SingerImage from '../ChildComponents/singerImage'
 import SingerList from '../ChildComponents/singerList'
 import dataCount from '../ChildComponents/dataCount'
 import axios from '../../utils/services'
+import {mapGetters,mapMutations} from 'vuex'
 
 /** 登陆表单样式属性 */
 const formItemLayout = {
@@ -170,6 +208,18 @@ export default {
         SingerList,
         dataCount
     },
+    computed:{
+        ...mapGetters({
+            userItem: 'getUserItem'  //用户信息
+        })
+    },
+    mounted(){
+        /** 调用定时器 */
+        this.$nextTick(()=>{
+            setInterval(this.signNo,1000)
+        }),
+        this.playlistHot();
+    },
     beforeCreate(){
         this.form = this.$form.createForm(this, { name: 'normal_login' })
     },
@@ -182,79 +232,11 @@ export default {
             formTailLayout,
             /** 登陆窗体显示/隐藏 */
             loginShow: false,
+            userDataShow: 'login',
+            /** 签到 */
+            sign: 'in',
             /** 热门推荐 */
-            hotRecommend:[
-                {
-                    musicId:'1',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'2',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'3',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'4',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'5',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'6',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'7',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'8',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'9',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'10',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                }
-            ],
+            hotRecommend:[],
             /** 个性推荐 */
             recommendAtion:[
                 {
@@ -358,6 +340,9 @@ export default {
         }
     },
     methods:{
+        ...mapMutations({
+            setUserItem: 'setUserItem'
+        }),
         /** 打开登录窗口 */
         loginIsShow(){
             this.loginShow =! this.loginShow;
@@ -376,7 +361,13 @@ export default {
                     axios.get('/login/cellphone',{params})
                         .then(function(response){
                             if(response.data.code === 200){
+                                that.setUserItem(response.data.profile)
+                                console.log("useritem",that.userItem[0])
                                 that.$message.success('登录成功');
+                                that.loginShow = false;
+                                that.userDataShow = that.userDataShow === 'data'?'login':'data';
+                                /** 登录成功调用个性推荐 */
+                                that.recommendAtionlist(that.userItem[0].userId);
                             }else if(response.data.code === 400 || response.data.code === 502){
                                 that.$message.warning('账号或密码错误');
                             }
@@ -386,6 +377,41 @@ export default {
                 }
             })
         },
+        /** 签到/已签到 */
+        signIn(){
+            this.sign = 'no'
+            this.$message.success('已签到');
+        },
+        /** 每天凌晨12点重置已签到按钮 */
+        signNo(){
+            let hh = new Date().getHours(); //时
+            let mf = new Date().getMinutes()<10?'0'+new Date().getMinutes():new Date().getMinutes(); //分
+            let ss = new Date().getSeconds()<10?'0'+new Date().getSeconds():new Date().getSeconds(); //秒
+            if(hh==23&&mf==59&&ss==59){
+                this.sign = 'in'
+                clearInterval(this.times)
+            }
+        },
+        /** 热门推荐 /top/playlist?limit=10 */
+        playlistHot(){
+            axios.get('/top/playlist?limit=10')
+                .then((response)=>{
+                    this.hotRecommend = response.data.playlists;
+                }).catch((error)=>{
+                    this.$message.error('服务未启动');
+                })
+        },
+        /** 个性推荐 /recommend/resource?userId=308371271 */
+        recommendAtionlist(userId){
+            let params = {userId}
+            console.log("userId",params);
+            axios.post('/recommend/resource',{params})
+                .then((response)=>{
+                    console.log("response",response)
+                }).catch((error)=>{
+                    this.$message.error('服务未启动');
+                })
+        }
     }
 }
 </script>
@@ -413,7 +439,7 @@ export default {
 .hot-recommend-music{
     border: 0px solid;
     margin:0;
-    height: 75vh;
+    height: 70vh;
 }
 .recommend-ation-music{
     height: 40vh;
@@ -454,7 +480,6 @@ export default {
     height: 30vh;
     background:#fafafa;
     border-bottom: 2px solid #ccc;
-    display: none;
 }
 .user-data img{
     width: 80px;
@@ -528,5 +553,12 @@ export default {
     top: 10px;
     color: #999;
     font-size: 12px;
+}
+.music-img{
+    width: 140px;
+    height: 140px;
+}
+.recommend-ul li{
+    height: 210px;
 }
 </style>

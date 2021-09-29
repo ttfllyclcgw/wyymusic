@@ -1,13 +1,18 @@
 <template>
     <ul class="rktitle-2">
-        <li><a href="#"><strong id="event_count">1</strong><span>动态</span></a></li>
-        <li><a href="#"><strong id="follow_count">2</strong><span>关注</span></a></li>
-        <li><a href="#"><strong id="fan_count">7</strong><span>粉丝</span></a></li>
+        <li><a href="#"><strong id="event_count">{{userItem[0].eventCount}}</strong><span>动态</span></a></li>
+        <li><a href="#"><strong id="follow_count">{{userItem[0].follows}}</strong><span>关注</span></a></li>
+        <li><a href="#"><strong id="fan_count">{{userItem[0].followeds}}</strong><span>粉丝</span></a></li>
     </ul>
 </template>
 <script>
+import {mapGetters} from 'vuex'
 export default {
-  
+    computed:{
+        ...mapGetters({
+            userItem: 'getUserItem'
+        })
+    }
 }
 </script>
 <style>

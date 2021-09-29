@@ -9,6 +9,8 @@ import 'ant-design-vue/dist/antd.css'
 import {message} from 'ant-design-vue'
 /** less */
 import less from 'less'
+/** vuex */
+import store from './vuex/store'
 
 Vue.prototype.$message = message;
 message.config({
@@ -24,5 +26,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')

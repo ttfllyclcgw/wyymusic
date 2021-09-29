@@ -1,22 +1,7 @@
 <template>
     <div>
-        <ul class="music-ul" v-if="listData.length" :listData="listData">
-            <li v-for="(item,index) in listData" :key="index">
-                <div class="music-image">
-                    <img :src="item.musicImg" />
-                    <a class="music-msk" :title="item.musicMsk" href="#"></a>
-                    <div class="music-bottom">
-                        <a-icon class="bottom-ej" type="customer-service" />
-                        <span class="nb">{{item.musicNb}}</span>
-                        <a-icon class="bottom-bf" title="播放" type="play-circle" />
-                    </div>
-                </div>
-                <p class="music-dec"><a href="#">{{item.musicMsk}}</a></p>
-                <p class="music-love"><em :title="item.musicLove">{{item.musicLove}}</em></p>
-            </li>
-        </ul>
-        <!--<slot name="recommend" :listData="listData">
-        </slot>-->
+        <slot name="recommend" :listData="listData">
+        </slot>
     </div>
 </template>
 <script>
