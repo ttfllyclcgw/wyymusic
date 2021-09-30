@@ -44,7 +44,7 @@
                     </MusicImage>
                 </div>
             </div>
-            <div class="recommend-ation">
+            <div class="recommend-ation" v-show="isUserlogin">
                 <List :islistIcon="false">
                     <template v-slot:listTitle>
                         <a href="#" class="v-list-title">个性推荐</a>
@@ -164,11 +164,11 @@
                 </List>
                 <SingerList>
                     <template v-slot:singerLists>
-                        <a-list item-layout="horizontal" :data-source="data">
+                        <a-list item-layout="horizontal" :data-source="artistsData">
                             <a-list-item slot="renderItem" slot-scope="item">
-                                <a-list-item-meta :description="item.description">
-                                    <a slot="title" href="#">{{ item.title }}</a>
-                                    <a-avatar slot="avatar" shape="square" :size="64"  src="/109951166027478939.jpg"/>
+                                <a-list-item-meta :description="item.alias">
+                                    <a slot="title" href="#">{{ item.name }}</a>
+                                    <a-avatar slot="avatar" shape="square" :size="64"  :src="item.img1v1Url" />
                                 </a-list-item-meta>
                             </a-list-item>
                         </a-list>
@@ -219,6 +219,7 @@ export default {
             setInterval(this.signNo,1000)
         }),
         this.playlistHot();
+        this.recommendSingerlist();
     },
     beforeCreate(){
         this.form = this.$form.createForm(this, { name: 'normal_login' })
@@ -233,6 +234,7 @@ export default {
             /** 登陆窗体显示/隐藏 */
             loginShow: false,
             userDataShow: 'login',
+            isUserlogin: false,
             /** 签到 */
             sign: 'in',
             /** 热门推荐 */
@@ -315,7 +317,7 @@ export default {
                 },
             ],
             /** 入驻歌手 */
-            data:[
+            artistsData:[
                 {
                     title: '张惠妹aMEl',
                     description:'台湾歌手张惠妹'
@@ -367,6 +369,7 @@ export default {
                                 that.loginShow = false;
                                 that.userDataShow = that.userDataShow === 'data'?'login':'data';
                                 /** 登录成功调用个性推荐 */
+                                that.isUserlogin = true;
                                 that.recommendAtionlist(that.userItem[0].userId);
                             }else if(response.data.code === 400 || response.data.code === 502){
                                 that.$message.warning('账号或密码错误');
@@ -411,7 +414,18 @@ export default {
                 }).catch((error)=>{
                     this.$message.error('服务未启动');
                 })
+        },
+        /** 入驻歌手 top/artists?offset=0&limit=5 */
+        recommendSingerlist(){
+            axios.get('/top/artists?offset=0&limit=5')
+                .then((response)=>{
+                    this.artistsData = response.data.artists;
+                    console.log("response",response.data.artists)
+                }).catch((error)=>{
+                    this.$message.error('服务未启动');
+                })
         }
+
     }
 }
 </script>
