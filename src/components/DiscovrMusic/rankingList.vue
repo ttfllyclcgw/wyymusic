@@ -13,10 +13,10 @@
                         <template v-slot:singerLists>
                             <a-list item-layout="horizontal" :data-source="featuresList">
                                 <a-list-item slot="renderItem" slot-scope="item">
-                                    <a-list-item-meta :description="item.description">
+                                    <a-list-item-meta :description="item.updateFrequency">
                                         <!--<a slot="title" href="#" :style="{fontSize:`${titleFontSize}px`}">{{ item.title }}</a>-->
-                                        <a slot="title" href="#">{{ item.title }}</a>
-                                        <a-avatar  slot="avatar" shape="square" :size="43"  :src="item.featuresImg"/>
+                                        <a slot="title" href="#">{{ item.name }}</a>
+                                        <a-avatar  slot="avatar" shape="square" :size="43"  :src="item.coverImgUrl"/>
                                     </a-list-item-meta>
                                 </a-list-item>
                             </a-list>
@@ -33,9 +33,9 @@
                         <template v-slot:singerLists>
                             <a-list item-layout="horizontal" :data-source="worldList">
                                 <a-list-item slot="renderItem" slot-scope="item">
-                                    <a-list-item-meta :description="item.description">
-                                        <a slot="title" href="#">{{ item.title }}</a>
-                                        <a-avatar  slot="avatar" shape="square" :size="43"  :src="item.worldImg"/>
+                                    <a-list-item-meta :description="item.updateFrequency">
+                                        <a slot="title" href="#">{{ item.name }}</a>
+                                        <a-avatar  slot="avatar" shape="square" :size="43"  :src="item.coverImgUrl"/>
                                     </a-list-item-meta>
                                 </a-list-item>
                             </a-list>
@@ -91,6 +91,7 @@
 import List from '../ChildComponents/List.vue'
 import SingerList from '../ChildComponents/singerList.vue'
 import Ranking from '../ChildComponents/ranking.vue'
+import axios from '../../utils/services'
 export default {
     components:{
         List,
@@ -99,143 +100,8 @@ export default {
     },
     data(){
         return{
-            featuresList:[
-                {
-                    key: 1,
-                    title: '飙升榜',
-                    description:'每天更新',
-                    featuresImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 2,
-                    title: '新歌榜',
-                    description:'每天更新',
-                    featuresImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 3,
-                    title: '原创榜',
-                    description:'每周四更新',
-                    featuresImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 4,
-                    title: '热歌榜',
-                    description:'每天更新',
-                    featuresImg:'/109951166027478939.jpg'
-                }
-            ],
-            worldList:[
-                {
-                    key: 1,
-                    title: '黑胶VIP爱听榜',
-                    description:'每天更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 2,
-                    title: '云音乐说唱榜',
-                    description:'每天更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 3,
-                    title: '云音乐古典榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 4,
-                    title: '云音乐电音榜',
-                    description:'每天更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 5,
-                    title: '音乐ACG榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 6,
-                    title: '云音乐韩语榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 7,
-                    title: '云音乐国电榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 8,
-                    title: 'UK排行榜周榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 9,
-                    title: '美国Billboard榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 10,
-                    title: 'Beatport全球电子舞曲榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 11,
-                    title: 'KTV唛榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 12,
-                    title: '日本Oricon榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 13,
-                    title: '云音乐欧美热歌榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 14,
-                    title: '云音乐欧美新歌榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 15,
-                    title: '法国 NRJ Vos Hits 周榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 16,
-                    title: '云音乐ACG动画榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 17,
-                    title: '云音乐ACG游戏榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                {
-                    key: 18,
-                    title: '云音乐ACG VOCALOID榜',
-                    description:'每周四更新',
-                    worldImg:'/109951166027478939.jpg'
-                },
-                
-            ],
+            featuresList:[],
+            worldList:[],
             rankColumns:[
                 {
                     title: '',
@@ -321,6 +187,29 @@ export default {
                 },
             ]
         }
+    },
+    mounted(){
+        this.detaillist()
+    },
+    methods:{
+        /** 所有榜单内容摘要 */
+        detaillist(){
+            axios.get(`/toplist/detail`)
+                .then((response)=>{
+                    let data = response.data.list
+                    for(var i = 0; i < data.length; i++){
+                        if(i < 4){
+                            this.featuresList.push(data[i])
+                        }else{
+                            this.worldList.push(data[i])
+                        }
+                    }
+                    console.log("data1",this.featuresList)
+                    console.log("data2",this.worldList)
+                })
+        }
+        
+        
     }
 }
 </script>

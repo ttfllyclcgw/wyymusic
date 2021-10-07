@@ -1,3 +1,4 @@
+/* eslint-disable vue/no-unused-vars */
 <template>
     <!-- /发现音乐/推荐 -->
     <div class="recommend">
@@ -55,12 +56,12 @@
                     </template>
                 </List>
                 <div class="recommend-ation-music">
-                    <!--<MusicImage>
+                    <MusicImage>
                         <template v-slot:recommend>
-                            <ul class="music-ul" v-if="listData.length">
-                                <li v-for="(item,index) in listData" :key="index">
+                            <ul class="music-ul" v-if="recommendAtion.length">
+                                <li v-for="(item,index) in recommendAtion" :key="index">
                                     <div class="music-image">
-                                        <img :src="item.coverImgUrl" />
+                                        <img :src="item.picUrl" class="music-img" />
                                         <a class="music-msk" :title="item.name" href="#"></a>
                                         <div class="music-bottom">
                                             <a-icon class="bottom-ej" type="customer-service" />
@@ -69,11 +70,11 @@
                                         </div>
                                     </div>
                                     <p class="music-dec"><a href="#">{{item.name}}</a></p>
-                                    <p class="music-love"><em :title="item.musicLove">{{item.musicLove}}</em></p>
+                                    <p class="music-love"><em :title="item.copywriter">{{item.copywriter}}</em></p>
                                 </li>
                             </ul>
                         </template>
-                    </MusicImage>-->
+                    </MusicImage>
                 </div>
             </div>
             <div class="new-shelves">
@@ -89,21 +90,23 @@
                 <div class="new-shelves-music">
                     <SingerImage>
                         <template v-slot:singerMusic>
-                            <a-icon type="left-circle" theme="twoTone" two-tone-color="#C10D0C" />
-                            <ul class="singer-ul shelves-music-ul">
-                                <li v-for="(item,index) in newShelvesMusic" :key="index">
-                                    <div class="singer-image">
-                                        <img :src="item.musicImg"/>
-                                        <a class="singer-msk" :title="item.musicMsk" href="#"></a>
-                                        <div class="singer-bottom" >
-                                            <a-icon class="bottom-bf" title="播放" type="play-circle" />
-                                         </div>
-                                    </div>
-                                    <p class="singer-dec"><a href="#" :title="item.musicMsk">{{item.musicMsk}}</a></p>
-                                    <p class="singer-love"><em :title="item.musicSinger">{{item.musicSinger}}</em></p>
-                                </li>
-                            </ul>
-                            <a-icon type="right-circle" theme="twoTone" two-tone-color="#C10D0C" />
+                            <a-carousel autoplay>
+                                <div v-for="(items,index) in newShelvesMusic" :key="index" class="singer-shelvesmusic">
+                                    <ul class="singer-ul shelves-music-ul">
+                                        <li v-for="(item,index) in items" :key="index">
+                                            <div class="singer-image">
+                                                <img :src="item.blurPicUrl"/>
+                                                <a class="singer-msk" :title="item.name" href="#" style="cursor:pointer;top:0px;"></a>
+                                                <div class="singer-bottom" >
+                                                    <a-icon class="bottom-bf" title="播放" type="play-circle" />
+                                                </div>
+                                            </div>
+                                            <p class="singer-dec"><a href="#" :title="item.name">{{item.name}}</a></p>
+                                            <p class="singer-love"><em :title="item.artists[0].name">{{item.artists[0].name}}</em></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </a-carousel>
                         </template>
                     </SingerImage>
                 </div>
@@ -220,6 +223,7 @@ export default {
         }),
         this.playlistHot();
         this.recommendSingerlist();
+        this.newShelveslist();
     },
     beforeCreate(){
         this.form = this.$form.createForm(this, { name: 'normal_login' })
@@ -240,105 +244,11 @@ export default {
             /** 热门推荐 */
             hotRecommend:[],
             /** 个性推荐 */
-            recommendAtion:[
-                {
-                    musicId:'1',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'2',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'3',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'4',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'5',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'猜你喜欢'
-                },
-            ],
+            recommendAtion:[],
             /** 新碟上架 */
-            newShelvesMusic:[
-                {
-                    musicId:'1',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'在世界的尽头说我恨你',
-                    musicSinger:'鱼丁糸'
-                },
-                {
-                    musicId:'2',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'Human (Deluxe)',
-                    musicSinger:'OneRepublic'
-                },
-                {
-                    musicId:'3',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'我们好好的',
-                    musicSinger:'李荣浩'
-                },
-                {
-                    musicId:'4',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'这些年为你攒下的歌Pt.1',
-                    musicSinger:'黄渤'
-                },
-                {
-                    musicId:'5',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'Solar Power',
-                    musicSinger:'Lorde'
-                },
-                {
-                    musicId:'6',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'不期而遇的夏天',
-                    musicSinger:'陈奕迅'
-                },
-            ],
+            newShelvesMusic:[],
             /** 入驻歌手 */
-            artistsData:[
-                {
-                    title: '张惠妹aMEl',
-                    description:'台湾歌手张惠妹'
-                },
-                {
-                    title: 'Fine乐团',
-                    description:'独立音乐人'
-                },
-                {
-                    title: '萬曉利',
-                    description:'民谣歌手、中国现代民谣的代表人物之一'
-                },
-                {
-                    title: '音乐人赵雷',
-                    description:'民谣歌手'
-                },
-                {
-                    title: '王三薄',
-                    description:'音乐人'
-                },
-            ]
+            artistsData:[]
         }
     },
     methods:{
@@ -360,7 +270,7 @@ export default {
                     }
                     let that = this;
                     /** 登录信息 */
-                    axios.get('/login/cellphone',{params})
+                    axios.get(`/login/cellphone`,{params})
                         .then(function(response){
                             if(response.data.code === 200){
                                 that.setUserItem(response.data.profile)
@@ -370,7 +280,7 @@ export default {
                                 that.userDataShow = that.userDataShow === 'data'?'login':'data';
                                 /** 登录成功调用个性推荐 */
                                 that.isUserlogin = true;
-                                that.recommendAtionlist(that.userItem[0].userId);
+                                that.recommendAtionlist();
                             }else if(response.data.code === 400 || response.data.code === 502){
                                 that.$message.warning('账号或密码错误');
                             }
@@ -397,7 +307,7 @@ export default {
         },
         /** 热门推荐 /top/playlist?limit=10 */
         playlistHot(){
-            axios.get('/top/playlist?limit=10')
+            axios.get(`/top/playlist?limit=${10}`)
                 .then((response)=>{
                     this.hotRecommend = response.data.playlists;
                 }).catch((error)=>{
@@ -405,22 +315,37 @@ export default {
                 })
         },
         /** 个性推荐 /recommend/resource?userId=308371271 */
-        recommendAtionlist(userId){
-            let params = {userId}
-            console.log("userId",params);
-            axios.post('/recommend/resource',{params})
+        recommendAtionlist(){
+            axios.post(`/personalized?limit=${5}`)
                 .then((response)=>{
-                    console.log("response",response)
+                    this.recommendAtion = response.data.result
                 }).catch((error)=>{
                     this.$message.error('服务未启动');
                 })
         },
         /** 入驻歌手 top/artists?offset=0&limit=5 */
         recommendSingerlist(){
-            axios.get('/top/artists?offset=0&limit=5')
+            axios.get(`/top/artists?offset=0&limit=${5}`)
                 .then((response)=>{
                     this.artistsData = response.data.artists;
-                    console.log("response",response.data.artists)
+                }).catch((error)=>{
+                    this.$message.error('服务未启动');
+                })
+        },
+        newShelveslist(){
+            axios.get(`/top/album?offset=${0}&limit=${30}&year=${new Date().getFullYear()}&month=${new Date().getMonth()+1}`)
+                .then((response)=>{
+                    let arr = response.data.weekData;
+
+                    let i = 0;
+                    let sectionCount = 6;
+                    for(let j = 0; j < arr.length; j++){
+                        i = parseInt(j / sectionCount);
+                        if(this.newShelvesMusic.length <= i){
+                            this.newShelvesMusic.push([]);
+                        }
+                        this.newShelvesMusic[i].push(arr[j]);
+                    }
                 }).catch((error)=>{
                     this.$message.error('服务未启动');
                 })
@@ -575,4 +500,6 @@ export default {
 .recommend-ul li{
     height: 210px;
 }
+
+/** 走马灯 */
 </style>
