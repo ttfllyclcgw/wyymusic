@@ -502,4 +502,8 @@ export default {
 }
 
 /** 走马灯 */
+.slick-list{
+    border: 0px solid;
+    width: 100%;
+}
 </style>

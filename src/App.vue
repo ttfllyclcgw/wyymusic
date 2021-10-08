@@ -6,22 +6,22 @@
         <a-sub-menu key="sub1">
           <span slot="title"><a-icon type="user" /><span>发现音乐</span></span>
           <a-menu-item key="1">
-            <router-link to="/discovrMusic/recommend">推荐</router-link>
+            <router-link to="/discovryMusic/recommend">推荐</router-link>
           </a-menu-item>
           <a-menu-item key="2">
-            <router-link to="/discovrMusic/rankingList">排行榜</router-link>
+            <router-link to="/discovryMusic/rankingList">排行榜</router-link>
           </a-menu-item>
           <a-menu-item key="3">
-            <router-link to="/discovrMusic/songList">歌单</router-link>
+            <router-link to="/discovryMusic/songList">歌单</router-link>
           </a-menu-item>
           <a-menu-item key="4">
-            <router-link to="/discovrMusic/newsRadio">主播电台</router-link>
+            <router-link to="/discovryMusic/newsRadio">主播电台</router-link>
           </a-menu-item>
           <a-menu-item key="5">
-            <router-link to="/discovrMusic/singer">歌手</router-link>
+            <router-link to="/discovryMusic/singer">歌手</router-link>
           </a-menu-item>
           <a-menu-item key="6">
-            <router-link to="/discovrMusic/newShelves">新碟上架</router-link>
+            <router-link to="/discovryMusic/newShelves">新碟上架</router-link>
           </a-menu-item>
         </a-sub-menu>
         <a-sub-menu key="sub2">
@@ -37,10 +37,10 @@
           <router-link to="/friend"><a-icon type="team" /><span>朋友</span></router-link>
         </a-menu-item>
         <a-menu-item key="10">
-          <router-link to="/discovrMusic/recommend"><a-icon type="cloud-o" /><span>商城</span></router-link>
+          <router-link to="/discovryMusic/recommend"><a-icon type="cloud-o" /><span>商城</span></router-link>
         </a-menu-item>
         <a-menu-item key="11">
-          <router-link to="/discovrMusic/recommend"><a-icon type="pie-chart" /><span>音乐人</span></router-link>
+          <router-link to="/discovryMusic/recommend"><a-icon type="pie-chart" /><span>音乐人</span></router-link>
         </a-menu-item>
         <a-sub-menu key="sub3">
           <span slot="title"><a-icon type="appstore-o" /><span>个人中心</span></span>
@@ -80,8 +80,7 @@ export default {
     aplayer
   },
   mounted(){
-    this.$router.push('/discovrMusic/recommend')
-    
+    this.$router.push('/discovryMusic/recommend')
   },
   methods:{
     

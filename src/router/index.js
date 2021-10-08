@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 /** 发现音乐 */
-import NewShelves from '../components/DiscovrMusic/newShelves.vue'
-import NewsRadio from '../components/DiscovrMusic/newsRadio.vue'
-import RankingList from '../components/DiscovrMusic/rankingList.vue'
-import Recommend from '../components/DiscovrMusic/recommend.vue'
-import Singer from '../components/DiscovrMusic/singer.vue'
-import SongList from '../components/DiscovrMusic/songList.vue'
+import NewShelves from '../components/DiscovryMusic/newShelves.vue'
+import NewsRadio from '../components/DiscovryMusic/newsRadio.vue'
+import RankingList from '../components/DiscovryMusic/rankingList.vue'
+import Recommend from '../components/DiscovryMusic/recommend.vue'
+import Singer from '../components/DiscovryMusic/singer.vue'
+import SongList from '../components/DiscovryMusic/songList.vue'
 
 /** 我的音乐 */
 import CollectPlaylist from '../components/MyMusic/collectPlaylist.vue'
@@ -19,11 +19,12 @@ import MySetting from '../components/Personal/mySetting.vue'
 /** 朋友 */
 import Friend from '../components/friend.vue'
 
-/** 歌单、歌手、用户、音乐详情 */
-import SongListDetails from '../components/DiscovrMusic/songListDetails.vue'
-import SingerDetails from '../components/DiscovrMusic/singerDetails.vue'
-import userDetails from '../components/DiscovrMusic/userDetails.vue'
-import Music from '../components/DiscovrMusic/music.vue'
+/** 歌单、歌手、用户、音乐详情、排行详情 */
+import SongListDetails from '../components/DiscovryMusic/songListDetails.vue'
+import SingerDetails from '../components/DiscovryMusic/singerDetails.vue'
+import userDetails from '../components/DiscovryMusic/userDetails.vue'
+import Music from '../components/DiscovryMusic/music.vue'
+import RankingDetails from '../components/ChildComponents/rankingDetails.vue'
 
 //解决连续点击多次路由报错（必须加在use前）
 // eslint-disable-next-line no-irregular-whitespace
@@ -43,32 +44,39 @@ Vue.prototype.$goRoute = function(path){
 export default new Router({
     routes: [
         {
-            path: '/discovrMusic/newShelves',
+            path: '/discovryMusic/newShelves',
             name: '新碟上架',
             component: NewShelves
         },
         {
-            path: '/discovrMusic/newsRadio',
+            path: '/discovryMusic/newsRadio',
             name: '主播电台',
             component: NewsRadio
         },
         {
-            path: '/discovrMusic/rankingList',
+            path: '/discovryMusic/rankingList',
             name: '排行榜',
-            component: RankingList
+            component: RankingList,
+            children:[
+                {
+                    path: '/discoveryMusic/ranking/details',
+                    name: '排行详情',
+                    component: RankingDetails
+                }
+            ]
         },
         {
-            path: '/discovrMusic/recommend',
+            path: '/discovryMusic/recommend',
             name: '推荐',
             component: Recommend
         },
         {
-            path: '/discovrMusic/singer',
+            path: '/discovryMusic/singer',
             name: '歌手',
             component: Singer
         },
         {
-            path: '/discovrMusic/songList',
+            path: '/discovryMusic/songList',
             name: '歌单',
             component: SongList
         },
@@ -98,17 +106,17 @@ export default new Router({
             component: Friend
         },
         {
-            path: '/discoverMusic/list/details',
+            path: '/discoveryMusic/list/details',
             name: '歌单详情',
             component: SongListDetails
         },
         {
-            path: '/discoverMusic/singer/details',
+            path: '/discoveryMusic/singer/details',
             name: '歌手详情',
             component: SingerDetails
         },
         {
-            path: '/discoverMusic/userDetails',
+            path: '/discoveryMusic/userDetails',
             name: '用户详情',
             component: userDetails
         },
