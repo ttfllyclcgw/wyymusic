@@ -31,9 +31,33 @@
                         </a>
                     </template>
                 </List>
-                <a-table :columns="rankColumns" :row-key="record=>record.key" :data-source="rankData">
+                <table class="qgg-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>标题</th>
+                            <th>时长</th>
+                            <th>歌手</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item,index) in datalist.tracks" :key="index">
+                            <td width="5%">{{index+1}}</td>
+                            <td width="50%">
+                                <img :src="item.al.picUrl" style="width:50px;height:50px"/>
+                                <span>{{item.name}}</span>
+
+                            </td>
+                            <td width="10%">{{item.publishTime | formatSeconds}}</td>
+                            <td width="25%"><a href="#" v-for="(items,index) in item.ar" :key="index">
+                                {{items.name}}{{index === item.ar.length-1 ? " ":" / "}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--<a-table :columns="rankColumns" :row-key="record=>record.key" :data-source="rankData">
                     <a slot="name" slot-scope="text">{{ text }}</a>
-                </a-table>
+                </a-table>-->
             </div>
         </template>
     </Ranking>
@@ -60,6 +84,14 @@ export default {
         let d = date.getDate();
         d = d < 10 ? ('0' + d) : d;
         return MM + '月' + d + '日';
+      },
+      formatSeconds: function(value){
+        let date = new Date(value);
+        let m = date.getMinutes();
+        m = m < 10 ? ('0' + m) : m;
+        let s = date.getSeconds();
+        s = s < 10 ? ('0' + s) : s;
+        return m + ':' + s;
       }
     },
     data(){
@@ -156,5 +188,41 @@ export default {
 }
 </script>
 <style scoped>
-
+/** Table 表格样式 **/
+.qgg-table{
+    border-collapse: collapse;
+    width:100%;
+    border:0px solid #c6c6c6 !important;
+    margin-bottom:20px;
+}
+.qgg-table th{
+    border-collapse: collapse;
+    border-right:0px solid #c6c6c6 !important;
+    border-bottom:0px solid #c6c6c6 !important;
+    background-color:#f0f0f0 !important; 
+    padding:5px 9px;
+    font-size:14px;
+    font-weight:normal;
+}
+.qgg-table td{
+    border-collapse: collapse;
+    border-right:0px solid #c6c6c6 !important;
+    border-bottom:0px solid #c6c6c6 !important; 
+    padding:5px 9px;
+    font-size:12px;
+    font-weight:normal;
+    word-break: break-all;
+}
+.qgg-table tr:nth-child(odd){
+    background-color:#fff !important; 
+}
+.qgg-table tr:nth-child(even){
+    background-color: #f8f8f8 !important;
+}
+.qgg-table tr td:nth-child(1){
+    text-align: center;
+}
+.qgg-table tr td a{
+    color: #000;
+}
 </style>
