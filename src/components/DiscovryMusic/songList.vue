@@ -17,16 +17,32 @@
                         </template>
                     </List>
                     <div class="song-list-music">
-                        <MusicImage :listData="songlist"></MusicImage>
+                        <MusicImage>
+                            <template v-slot:recommend>
+                                <ul class="music-ul" v-if="songlist.length">
+                                    <li v-for="(item,index) in songlist" :key="index">
+                                        <div class="music-image">
+                                            <img :src="item.coverImgUrl" class="music-img" />
+                                            <a class="music-msk" :title="item.name" href="#"></a>
+                                            <div class="music-bottom">
+                                                <a-icon class="bottom-ej" type="customer-service" />
+                                                <span class="nb">{{item.playCount}}</span>
+                                                <a-icon class="bottom-bf" title="播放" type="play-circle" />
+                                            </div>
+                                        </div>
+                                        <p class="music-dec"><a href="#" :title="item.name">{{item.name}}</a></p>
+                                        <p class="music-love"><em :title="item.creator.nickname">by {{item.creator.nickname}}</em></p>
+                                    </li>
+                                </ul>
+                            </template>
+                        </MusicImage>
                     </div>    
                 </div>
                 <div class="song-list-page">
                     <a-pagination
-                        v-model="current" :page-size-options="pageSizeOptions" :total="total"
-                        show-size-changer :page-size="pageSize" @showSizeChange="onShowSizeChange">
-                        <template slot="buildOptionText" slot-scope="props">
-                            <span v-if="props.value !== '50'">{{ props.value }}条/页</span>
-                            <span v-if="props.value === '50'">全部</span>
+                        v-model="current" :total="total"
+                         :page-size="limit" @showSizeChange="onShowSizeChange">
+                        <template slot="buildOptionText">
                         </template>
                     </a-pagination>
                 </div>
@@ -135,6 +151,7 @@
 <script>
 import List from '../ChildComponents/List'
 import MusicImage from '../ChildComponents/musicImage'
+import axios from '../../utils/services'
 export default {
     components:{
         List,
@@ -142,268 +159,36 @@ export default {
     },
     data(){
         return{
-            songlist:[
-                {
-                    musicId:'1',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'-KooTo-'
-                },
-                {
-                    musicId:'2',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'柠檬木有枝'
-                },
-                {
-                    musicId:'3',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'鹿白川'
-                },
-                {
-                    musicId:'4',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'雀鹰男巫'
-                },
-                {
-                    musicId:'5',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'银河系第一帅气'
-                },
-                {
-                    musicId:'6',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'-KooTo-'
-                },
-                {
-                    musicId:'7',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'柠檬木有枝'
-                },
-                {
-                    musicId:'8',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'鹿白川'
-                },
-                {
-                    musicId:'9',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'雀鹰男巫'
-                },
-                {
-                    musicId:'10',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'银河系第一帅气'
-                },
-                {
-                    musicId:'11',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'-KooTo-'
-                },
-                {
-                    musicId:'12',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'柠檬木有枝'
-                },
-                {
-                    musicId:'13',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'鹿白川'
-                },
-                {
-                    musicId:'14',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'雀鹰男巫'
-                },
-                {
-                    musicId:'15',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'银河系第一帅气'
-                },
-                {
-                    musicId:'16',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'-KooTo-'
-                },
-                {
-                    musicId:'17',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'柠檬木有枝'
-                },
-                {
-                    musicId:'18',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'鹿白川'
-                },
-                {
-                    musicId:'19',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'雀鹰男巫'
-                },
-                {
-                    musicId:'20',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'银河系第一帅气'
-                },
-                {
-                    musicId:'21',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'-KooTo-'
-                },
-                {
-                    musicId:'22',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'柠檬木有枝'
-                },
-                {
-                    musicId:'23',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'鹿白川'
-                },
-                {
-                    musicId:'24',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'雀鹰男巫'
-                },
-                {
-                    musicId:'25',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'银河系第一帅气'
-                },
-                {
-                    musicId:'26',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'-KooTo-'
-                },
-                {
-                    musicId:'27',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'柠檬木有枝'
-                },
-                {
-                    musicId:'28',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'鹿白川'
-                },
-                {
-                    musicId:'29',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'雀鹰男巫'
-                },
-                {
-                    musicId:'30',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'银河系第一帅气'
-                },
-                {
-                    musicId:'31',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'-KooTo-'
-                },
-                {
-                    musicId:'32',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'柠檬木有枝'
-                },
-                {
-                    musicId:'33',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'鹿白川'
-                },
-                {
-                    musicId:'34',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'雀鹰男巫'
-                },
-                {
-                    musicId:'35',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'银河系第一帅气'
-                },
-            ],
+            songlist:[],
             /** 分页 */
-            pageSizeOptions: ['10', '20', '30', '40', '50'],
             current: 1,
-            pageSize: 10,
-            total: 50,
+            total: 0,
+            limit: 35,
+            offset: this.current * this.limit,
             /** 分类显示/隐藏 */
             isShow: false,
         }
     },
+    mounted(){
+        this.playsonglist(this.limit,this.current*this.limit)
+    },
     methods:{
-        onShowSizeChange(current, pageSize) {
-            this.pageSize = pageSize;
+        /** 分页 */
+        onShowSizeChange(current, limit) {
+            this.limit = limit;
         },
+        /** 分类显示/隐藏 */
         typeShow(){
             this.isShow =! this.isShow;
+        },
+        /** 歌单 /top/playlist */
+        playsonglist(limit,offset){
+            axios.get(`/top/playlist?limit=${limit}&offset=${offset}`)
+                .then((response)=>{
+                    this.songlist = response.data.playlists
+                    this.total = response.data.total
+                    console.log("response",response)
+                })
         }
     }
 }

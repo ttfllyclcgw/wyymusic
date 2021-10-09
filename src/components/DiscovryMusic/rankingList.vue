@@ -98,6 +98,8 @@ export default {
             axios.get(`/playlist/detail?id=${id}`)
                 .then((response)=>{
                     this.detailData = response.data.playlist
+                }).catch((error)=>{
+                    this.$message.error('/playlist/detail查询失败');
                 })
         }
         
