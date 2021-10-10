@@ -30,8 +30,11 @@
                                                 <a-icon class="bottom-bf" title="播放" type="play-circle" />
                                             </div>
                                         </div>
-                                        <p class="music-dec"><a href="#" :title="item.name">{{item.name}}</a></p>
-                                        <p class="music-love"><em :title="item.creator.nickname">by {{item.creator.nickname}}</em></p>
+                                        <p class="music-dec"><a href="#" :title="item.name">{{item.name | ellipsis}}</a></p>
+                                        <p class="music-love songlist-music-love">
+                                            <em :title="item.creator.nickname">by</em>
+                                            <router-link to="#" :title="item.creator.nickname">{{item.creator.nickname | ellipsis}}</router-link>
+                                        </p>
                                     </li>
                                 </ul>
                             </template>
@@ -39,12 +42,7 @@
                     </div>    
                 </div>
                 <div class="song-list-page">
-                    <a-pagination
-                        v-model="current" :total="total"
-                         :page-size="limit" @showSizeChange="onShowSizeChange">
-                        <template slot="buildOptionText">
-                        </template>
-                    </a-pagination>
+                    <Pagination @playsonglist="playsonglist(limit,offset)"></Pagination>
                 </div>
                 <div class="song-type-select" v-show="isShow">
                     <h3><a href="#"><em>全部风格</em></a></h3>
@@ -152,30 +150,50 @@
 import List from '../ChildComponents/List'
 import MusicImage from '../ChildComponents/musicImage'
 import axios from '../../utils/services'
+import {mapGetters,mapActions} from 'vuex'
+import Pagination from '../ChildComponents/pagination.vue'
 export default {
     components:{
         List,
-        MusicImage
+        MusicImage,
+        Pagination
+    },
+    computed:{
+        ...mapGetters({
+            /** 分页 */
+            current: 'getCurrent',
+            total: 'getTotal',
+            limit: 'getLimit',
+            offset: 'getOffset',
+        })
     },
     data(){
         return{
             songlist:[],
-            /** 分页 */
-            current: 1,
-            total: 0,
-            limit: 35,
-            offset: this.current * this.limit,
             /** 分类显示/隐藏 */
             isShow: false,
         }
     },
     mounted(){
-        this.playsonglist(this.limit,this.current*this.limit)
+        this.playsonglist(this.limit,this.offset)
+    },
+    filters:{
+        /** 字符超长处理 */
+        ellipsis (value) {
+            if (!value) return ''
+            if (value.length > 8) {
+                return value.slice(0,8) + '...'
+            }
+            return value
+        }
     },
     methods:{
+        ...mapActions({
+            setTotal: 'syncsetTotal'
+        }),
         /** 分页 */
-        onShowSizeChange(current, limit) {
-            this.limit = limit;
+        onChange(current) {
+            this.current = current;
         },
         /** 分类显示/隐藏 */
         typeShow(){
@@ -186,8 +204,7 @@ export default {
             axios.get(`/top/playlist?limit=${limit}&offset=${offset}`)
                 .then((response)=>{
                     this.songlist = response.data.playlists
-                    this.total = response.data.total
-                    console.log("response",response)
+                    this.setTotal(response.data.total)
                 })
         }
     }
@@ -290,5 +307,20 @@ export default {
 }
 .f-cb dt .anticon{
     margin: 0 0.5vw;
+}
+.songlist-music-love{
+    position: relative;
+}
+.songlist-music-love > a{
+    position: absolute;
+    top: 0;
+    left: 15px;
+}
+.songlist-music-love a{
+    color: #666;
+}
+.songlist-music-love a:hover{
+    text-decoration: underline;
+    color: #666;
 }
 </style>
