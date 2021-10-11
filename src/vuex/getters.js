@@ -13,5 +13,8 @@ export default{
     },
     getOffset(state){
         return state.offset
+    },
+    getFlagName(state){
+        return state.flagName
     }
 }

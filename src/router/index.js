@@ -19,12 +19,13 @@ import MySetting from '../components/Personal/mySetting.vue'
 /** 朋友 */
 import Friend from '../components/friend.vue'
 
-/** 歌单、歌手、用户、音乐详情、排行详情 */
+/** 歌单、歌手、用户、音乐详情、排行详情、歌手列表 */
 import SongListDetails from '../components/DiscovryMusic/songListDetails.vue'
 import SingerDetails from '../components/DiscovryMusic/singerDetails.vue'
 import userDetails from '../components/DiscovryMusic/userDetails.vue'
 import Music from '../components/DiscovryMusic/music.vue'
 import RankingDetails from '../components/ChildComponents/rankingDetails.vue'
+import singerArtistlist from '../components/ChildComponents/singerArtistlist.vue'
 
 //解决连续点击多次路由报错（必须加在use前）
 // eslint-disable-next-line no-irregular-whitespace
@@ -73,7 +74,14 @@ export default new Router({
         {
             path: '/discovryMusic/singer',
             name: '歌手',
-            component: Singer
+            component: Singer,
+            children:[
+                {
+                    path: '/discoveryMusic/singer/artistlist',
+                    name: '歌手列表',
+                    component: singerArtistlist
+                }
+            ]
         },
         {
             path: '/discovryMusic/songList',

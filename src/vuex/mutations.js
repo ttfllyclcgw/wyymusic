@@ -23,5 +23,8 @@ export default{
     go_page(state,current){
         state.current = current
         state.offset = current * state.limit
+    },
+    setFlagName(state,flagName){
+        state.flagName = flagName
     }
 }

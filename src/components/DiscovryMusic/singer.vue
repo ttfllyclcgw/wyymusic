@@ -12,9 +12,12 @@
                     <SingerList>
                         <template v-slot:singerLists>
                             <ul class="singer-list-ul">
-                                <li><a href="#">华语男歌手</a></li>
-                                <li><a href="#">华语女歌手</a></li>
-                                <li><a href="#">华语组合/乐队</a></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(1,7,-1);setFlagName('华语男歌手')">华语男歌手</router-link></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}"
+                                    v-on:click.native="artistlistData(2,7,-1);setFlagName('华语女歌手')">华语女歌手</router-link></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}"
+                                    v-on:click.native="artistlistData(3,7,-1);setFlagName('华语组合/乐队')">华语组合/乐队</router-link></li>
                             </ul>
                         </template>
                     </SingerList>
@@ -28,9 +31,12 @@
                     <SingerList>
                         <template v-slot:singerLists>
                             <ul class="singer-list-ul">
-                                <li><a href="#">欧美男歌手</a></li>
-                                <li><a href="#">欧美女歌手</a></li>
-                                <li><a href="#">欧美组合/乐队</a></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(1,96,-1);setFlagName('欧美男歌手')">欧美男歌手</router-link></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(2,96,-1);setFlagName('欧美女歌手')">欧美女歌手</router-link></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(3,96,-1);setFlagName('欧美组合/乐队')">欧美组合/乐队</router-link></li>
                             </ul>
                         </template>
                     </SingerList>
@@ -44,9 +50,12 @@
                     <SingerList>
                         <template v-slot:singerLists>
                             <ul class="singer-list-ul">
-                                <li><a href="#">日本男歌手</a></li>
-                                <li><a href="#">日本女歌手</a></li>
-                                <li><a href="#">日本组合/乐队</a></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(1,8,-1);setFlagName('日本男歌手')">日本男歌手</router-link></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(2,8,-1);setFlagName('日本女歌手')">日本女歌手</router-link></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(3,8,-1);setFlagName('日本组合/乐队')">日本组合/乐队</router-link></li>
                             </ul>
                         </template>
                     </SingerList>
@@ -60,9 +69,12 @@
                     <SingerList>
                         <template v-slot:singerLists>
                             <ul class="singer-list-ul">
-                                <li><a href="#">韩国男歌手</a></li>
-                                <li><a href="#">韩国女歌手</a></li>
-                                <li><a href="#">韩国组合/乐队</a></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(1,16,-1);setFlagName('韩国男歌手')">韩国男歌手</router-link></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(2,16,-1);setFlagName('韩国女歌手')">韩国女歌手</router-link></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(3,16,-1);setFlagName('韩国组合/乐队')">韩国组合/乐队</router-link></li>
                             </ul>
                         </template>
                     </SingerList>
@@ -76,9 +88,12 @@
                     <SingerList>
                         <template v-slot:singerLists>
                             <ul class="singer-list-ul">
-                                <li><a href="#">其他男歌手</a></li>
-                                <li><a href="#">其他女歌手</a></li>
-                                <li><a href="#">其他组合/乐队</a></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(1,0,-1);setFlagName('其他男歌手')">其他男歌手</router-link></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(2,0,-1);setFlagName('其他女歌手')">其他女歌手</router-link></li>
+                                <li><router-link :to="{path:`/discoveryMusic/singer/artistlist`}" 
+                                    v-on:click.native="artistlistData(3,0,-1);setFlagName('其他组合/乐队')">其他组合/乐队</router-link></li>
                             </ul>
                         </template>
                     </SingerList>
@@ -86,7 +101,7 @@
             </a-col>
             <a-col :span="16" class="right-rank-row">
                 <keep-alive>
-                    <router-view></router-view>
+                    <router-view :artistlist="artistlist"></router-view>
                 </keep-alive>
             </a-col>
         </a-row>
@@ -96,17 +111,36 @@
 <script>
 import List from '../ChildComponents/List'
 import SingerList from '../ChildComponents/singerList'
-import SingerArtistlist from '../ChildComponents/singerArtistlist'
+import axios from '../../utils/services'
+import {mapMutations} from 'vuex'
 export default {
     components:{
         List,
         SingerList,
-        SingerArtistlist
+    },
+    mounted(){
+        this.$router.push('/discoveryMusic/singer/artistlist')
+        this.artistlistData(this.type,this.area,this.initial)
     },
     data(){
         return{
-
+            artistlist:[],
+            type: 1,
+            area: 7,
+            initial: -1,
         }
+    },
+    methods:{
+        ...mapMutations({
+            setFlagName: 'setFlagName'
+        }),
+        /** 歌手分类列表 /artist/list?type=1&area=96&initial=0 */
+        artistlistData(type,area,initial){
+            axios.get(`/artist/list?type=${type}&area=${area}&initial=${initial}&limit=100`)
+                .then((response)=>{
+                    this.artistlist = response.data.artists
+                })
+        },
     }
 }
 </script>
@@ -115,6 +149,9 @@ export default {
 .singer-list-ul li > a{
     color: @color;
     line-height: 30px;
+}
+.singer-list-ul{
+    margin-top: 4px;
 }
 .left-rank-row-singer{
     border-bottom: 1px solid #ccc;
@@ -166,5 +203,8 @@ export default {
 }
 .right-singer-list li > a:hover{
     text-decoration: underline;
+}
+.right-rank-row{
+    padding-bottom: 5vh;;
 }
 </style>

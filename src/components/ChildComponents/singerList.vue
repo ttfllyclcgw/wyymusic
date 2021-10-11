@@ -12,12 +12,6 @@ export default {
 };
 </script>
 <style lang="less">
-.xx{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-wrap: normal;
-}
 .ant-list-item-meta-content .ant-list-item-meta-description{
     font-size: 12px;
     overflow: hidden;

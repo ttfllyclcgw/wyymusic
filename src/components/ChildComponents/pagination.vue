@@ -15,7 +15,7 @@
 <script>
 import {mapGetters, mapMutations} from 'vuex'
 export default {
-    computed: {
+    computed:{
         ...mapGetters({
             total: 'getTotal',
             limit: 'getLimit',
@@ -57,9 +57,8 @@ export default {
             setLimit: 'setLimit'
         }),
         goPage(i) {
-            //if (i === 0 || i === this.currentPage) return
-                this.go_page(i)
-                this.$emit('playsonglist',this.limit,this.offset)
+            this.go_page(i)
+            this.$emit('playsonglist',this.limit,this.offset)
         },
         goPrePage() {
             this.pre_page(this.offset)
