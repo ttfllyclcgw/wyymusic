@@ -8,6 +8,12 @@ export default{
     setCurrent(state,current){
         state.current = current
     },
+    setOffset(state,offset){
+        state.offset = offset
+    },
+    setLimit(state,limit){
+        state.limit = limit
+    },
     pre_page(state,offset){
         state.offset = offset - state.limit
     },

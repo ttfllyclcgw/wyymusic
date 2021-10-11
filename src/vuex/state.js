@@ -4,6 +4,5 @@ export default{
     current: 1,
     total: 0,
     limit: 35,
-    offset: 35
-
+    offset: 0
 }

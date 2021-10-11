@@ -69,7 +69,7 @@
                                             <a-icon class="bottom-bf" title="播放" type="play-circle" />
                                         </div>
                                     </div>
-                                    <p class="music-dec"><a href="#">{{item.name}}</a></p>
+                                    <p class="music-dec"><a href="#" :title="item.name">{{item.name}}</a></p>
                                     <p class="music-love"><em :title="item.copywriter">{{item.copywriter}}</em></p>
                                 </li>
                             </ul>

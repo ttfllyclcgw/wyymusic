@@ -2,10 +2,10 @@
     <div class="page-wrap">
         <ul>
             <li v-show="prePage" class="li-page" @click="goPrePage()">上一页</li>
-            <li v-for="(i,index) in showPageBtn" :class="{active: i === currentPage, pointer: i, hover: i && i !== currentPage}"
-                 @click="goPage(i);" :key="index">
+            <li v-for="(i,index) in showPageBtn" :class="{active: i-1 === currentPage, pointer: i, hover: i && i !== currentPage}"
+                 @click="goPage(i-1);" :key="index">
                 <a v-if="i" class="notPointer">{{i}}</a>
-                <a v-else>···</a>
+                <a v-else style="pointer-events:none;">···</a>
             </li>
             <li v-show="nextPage" class="li-page" @click="goNextPage()">下一页</li>
         </ul>
@@ -20,6 +20,7 @@ export default {
             total: 'getTotal',
             limit: 'getLimit',
             offset: 'getOffset',
+            current: 'getCurrent'
         }),
         totalPage() {
             return Math.ceil(this.total / this.limit)
@@ -28,10 +29,10 @@ export default {
             return this.offset
         },
         currentPage() {
-            return Math.ceil(this.offsetData / this.limit) + 1
+            return Math.ceil(this.offsetData / this.limit)
         },
         prePage() {
-            return this.offsetData !== 0 && this.total
+            return this.offsetData >= this.limit && this.total
         },
         nextPage() {
             return (this.offsetData + this.limit < this.total) && this.total
@@ -52,10 +53,11 @@ export default {
             pre_page: 'pre_page',
             next_page: 'next_page',
             go_page: 'go_page',
-            setCurrent: 'setCurrent'
+            setOffset: 'setOffset',
+            setLimit: 'setLimit'
         }),
         goPage(i) {
-            if (i === 0 || i === this.currentPage) return
+            //if (i === 0 || i === this.currentPage) return
                 this.go_page(i)
                 this.$emit('playsonglist',this.limit,this.offset)
         },
@@ -67,7 +69,6 @@ export default {
             this.next_page(this.offset)
             this.$emit('playsonglist',this.limit,this.offset)
         },
-        
     }
 }
 </script>
