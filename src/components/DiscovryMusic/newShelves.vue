@@ -15,14 +15,17 @@
                                 <ul class="singer-ul shelves-ul">
                                     <li v-for="(item,index) in hotShelves" :key="index" style="width:130px;">
                                         <div class="singer-image">
-                                            <img :src="item.musicImg" style="width:130px;height:130px" />
-                                            <a class="singer-msk" :title="item.musicMsk" href="#"></a>
+                                            <img :src="item.picUrl" style="width:130px;height:130px" />
+                                            <a class="singer-msk" :title="item.name" href="#"></a>
                                             <div class="singer-bottom shelves-bottom" >
                                                 <a-icon class="bottom-bf" title="播放" type="play-circle" />
                                             </div>
                                         </div>
-                                        <p class="singer-dec" style="width:130px;"><a href="#" :title="item.musicMsk">{{item.musicMsk}}</a></p>
-                                        <p class="singer-love" style="width:130px;"><em :title="item.musicSinger">{{item.musicSinger}}</em></p>
+                                        <p class="singer-dec" style="width:130px;"><a href="#" :title="item.name">{{item.name}}</a></p>
+                                        <p class="singer-love" style="width:130px;">
+                                            <a href="#" v-for="(items,index2) in item.artists" :key="index2" 
+                                            :title="items.name" >{{items.name}}{{index2 === item.artists.length-1 ? " ":" / "}}</a>
+                                        </p>
                                     </li>
                                 </ul>
                             </template>
@@ -50,16 +53,19 @@
                         <SingerImage>
                             <template v-slot:singerMusic>
                                 <ul class="singer-ul shelves-ul">
-                                    <li v-for="(item,index) in hotShelves" :key="index" style="width:130px;">
+                                    <li v-for="(item,index) in allShelves" :key="index" style="width:130px;">
                                         <div class="singer-image">
-                                            <img :src="item.musicImg" style="width:130px;height:130px" />
-                                            <a class="singer-msk" :title="item.musicMsk" href="#"></a>
+                                            <img :src="item.picUrl" style="width:130px;height:130px" />
+                                            <a class="singer-msk" :title="item.name" href="#"></a>
                                             <div class="singer-bottom shelves-bottom" >
                                                 <a-icon class="bottom-bf" title="播放" type="play-circle" />
                                             </div>
                                         </div>
-                                        <p class="singer-dec" style="width:130px;"><a href="#" :title="item.musicMsk">{{item.musicMsk}}</a></p>
-                                        <p class="singer-love" style="width:130px;"><em :title="item.musicSinger">{{item.musicSinger}}</em></p>
+                                        <p class="singer-dec" style="width:130px;"><a href="#" :title="item.name">{{item.name}}</a></p>
+                                        <p class="singer-love" style="width:130px;">
+                                            <a href="#" v-for="(items,index2) in item.artists" :key="index2" 
+                                            :title="items.name" >{{items.name}}{{index2 === item.artists.length-1 ? " ":" / "}}</a>
+                                        </p>
                                     </li>
                                 </ul>
                             </template>
@@ -67,14 +73,6 @@
                     </div>  
                 </div>  
                 <div class="song-list-page">
-                    <a-pagination
-                        v-model="current" :page-size-options="pageSizeOptions" :total="total"
-                        show-size-changer :page-size="pageSize" @showSizeChange="onShowSizeChange">
-                        <template slot="buildOptionText" slot-scope="props">
-                            <span v-if="props.value !== '50'">{{ props.value }}条/页</span>
-                            <span v-if="props.value === '50'">全部</span>
-                        </template>
-                    </a-pagination>
                 </div>
             </a-col>
         </a-row>
@@ -84,6 +82,7 @@
 <script>
 import List from '../ChildComponents/List.vue'
 import SingerImage from '../ChildComponents/singerImage.vue'
+import axios from '../../utils/services'
 export default {
     components:{
         List,
@@ -91,80 +90,39 @@ export default {
     },
     data(){
         return{
-            /** 热门新碟/全部新碟 */
-            hotShelves:[
-                {
-                    musicId:'1',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'在世界的尽头说我恨你',
-                    musicSinger:'鱼丁糸'
-                },
-                {
-                    musicId:'2',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'Human (Deluxe)',
-                    musicSinger:'OneRepublic'
-                },
-                {
-                    musicId:'3',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'我们好好的',
-                    musicSinger:'李荣浩'
-                },
-                {
-                    musicId:'4',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'这些年为你攒下的歌Pt.1',
-                    musicSinger:'黄渤'
-                },
-                {
-                    musicId:'5',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'Solar Power',
-                    musicSinger:'Lorde'
-                },
-                {
-                    musicId:'6',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'不期而遇的夏天',
-                    musicSinger:'陈奕迅'
-                },
-                {
-                    musicId:'7',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'不期而遇的夏天',
-                    musicSinger:'陈奕迅'
-                },
-                {
-                    musicId:'8',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'不期而遇的夏天',
-                    musicSinger:'陈奕迅'
-                },
-                {
-                    musicId:'9',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'不期而遇的夏天',
-                    musicSinger:'陈奕迅'
-                },
-                {
-                    musicId:'10',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'不期而遇的夏天',
-                    musicSinger:'陈奕迅'
-                },
-            ],
+            /** 热门新碟 */
+            hotShelves:[],
+            type: 'new',
+            /** 全部新碟 */
+            allShelves:[],
+            area: 'ALL',
+            offset: 0,
             /** 分页 */
-            pageSizeOptions: ['10', '20', '30', '40', '50'],
-            current: 1,
-            pageSize: 10,
-            total: 50
         }
     },
+    mounted(){
+        this.hotShelveslist();
+        this.allShelveslist();
+    },
     methods:{
-        onShowSizeChange(current, pageSize) {
-            this.pageSize = pageSize;
+        /** 热门新碟 */
+        hotShelveslist(){
+            axios.get(`/top/album?offset=${0}&limit=${10}&type=${this.type}`)
+                .then((response)=>{
+                    for(let i=0;this.hotShelves.length<10;i++){
+                        this.hotShelves.push(response.data.weekData[i])
+                    }
+                    console.log("response",this.hotShelves)
+                })
         },
+        /** 全部新碟 */
+        allShelveslist(){
+            axios.get(`/album/new?area=${this.area}&offset=${this.offset}&limit=${35}`)
+                .then((response)=>{
+                    this.allShelves = response.data.albums
+                    console.log("response2",response)
+                })
+        }
     }
 }
 </script>
@@ -177,5 +135,24 @@ export default {
 }
 .shelves-bottom .bottom-bf{
     left: 7.5vw !important;
+}
+.shelves-ul li{
+    .singer-dec{
+        font-size: 14px;
+        color: #000;
+    }
+    .singer-love{
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        a{
+            font-size: 12px;
+            color: #666;
+        }
+        a:hover{
+            text-decoration: underline;
+            color: #666;
+        }
+    }
 }
 </style>

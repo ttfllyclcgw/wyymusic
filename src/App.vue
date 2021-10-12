@@ -14,9 +14,9 @@
           <a-menu-item key="3">
             <router-link to="/discovryMusic/songList">歌单</router-link>
           </a-menu-item>
-          <a-menu-item key="4">
+          <!--<a-menu-item key="4">
             <router-link to="/discovryMusic/newsRadio">主播电台</router-link>
-          </a-menu-item>
+          </a-menu-item>-->
           <a-menu-item key="5">
             <router-link to="/discovryMusic/singer">歌手</router-link>
           </a-menu-item>
