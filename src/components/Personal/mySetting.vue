@@ -13,11 +13,12 @@
                         <a-form :form="form">
                             <a-form-item :label-col="formItemLayout.labelCol" 
                                 :wrapper-col="formItemLayout.wrapperCol" label="昵称：">
-                                <a-input v-decorator="['username',{ rules: [{ message: 'Please input your name' }] },]"/>
+                                <a-input v-decorator="['username',
+                                    { rules: [{ message: 'Please input your name' }],initialValue:`${userItem[0].nickname}` },]"/>
                             </a-form-item>
                             <a-form-item :label-col="formItemLayout.labelCol" 
                                 :wrapper-col="formItemLayout.wrapperCol" label="介绍：">
-                                <a-textarea allow-clear />
+                                <a-textarea allow-clear v-decorator="['signature',{rules:[{initialValue:`${userItem[0].signature}`}]},]" />
                             </a-form-item>
                             <a-form-item :label-col="formItemLayout.labelCol" 
                                 :wrapper-col="formItemLayout.wrapperCol" label="性别：">
@@ -25,7 +26,7 @@
                             </a-form-item>
                             <a-form-item :label-col="fromOptionLayout.labelCol" 
                                 :wrapper-col="fromOptionLayout.wrapperCol" label="生日:">
-                                <a-select default-value="1998" style="width: 75px">
+                                <a-select default-value="1999" style="width: 75px">
                                     <a-select-option value="1997">1997</a-select-option>
                                     <a-select-option value="1998">1998</a-select-option>
                                     <a-select-option value="1999" disabled>1999</a-select-option>
@@ -37,7 +38,7 @@
                                     <a-select-option value="03" disabled>03</a-select-option>
                                     <a-select-option value="04">04</a-select-option>
                                 </a-select><span>月</span>
-                                <a-select default-value="01" style="width: 75px">
+                                <a-select default-value="18" style="width: 75px">
                                     <a-select-option value="01">01</a-select-option>
                                     <a-select-option value="02">02</a-select-option>
                                     <a-select-option value="03" disabled>03</a-select-option>
@@ -54,7 +55,7 @@
                                 </a-select>
                             </a-form-item>
                             <a-form-item class="a-from-item-avatar">
-                                <a-avatar shape="square" :size="128" icon="user" src="/109951166027478939.jpg" />
+                                <a-avatar shape="square" :size="128" icon="user" :src="userItem[0].avatarUrl" />
                                 <br/><a href="#">更换头像</a>
                             </a-form-item>
                             <a-form-item :label-col="formTailLayout.labelCol" 
@@ -109,18 +110,23 @@
 
 <script>
 import List from '../ChildComponents/List'
-
+import {mapGetters} from 'vuex'
 const fromRadioValue = ['男', '女', '保密']; // eslint-disable-line no-unused-vars
 
 const provinceData = ['广东省', '湖南省','福建省']; // eslint-disable-line no-unused-vars
 const cityData = {  // eslint-disable-line no-unused-vars
-   '广东省': ['广州市', '珠海市', '梅州市'],
+   '广东省': ['珠海市', '广州市', '梅州市'],
    '湖南省': ['长沙市', '衡阳市', '株洲市'],
    '福建省': ['福州市', '莆田市', '厦门市','龙岩市']
 };
 export default {
     components:{
         List,
+    },
+    computed:{
+        ...mapGetters({
+            userItem: 'getUserItem'
+        })
     },
     data(){
         return{
@@ -150,13 +156,15 @@ export default {
             form: this.$form.createForm(this, { name: 'dynamic_rule' }),
             /** 性别 */
             fromRadioValue,
-            defaultValue: fromRadioValue[0],
+            defaultValue: '男',
             /** 地区 */
             provinceData,
             cityData,
             cities: cityData[provinceData[0]],
             secondCity: cityData[provinceData[0]][0],
         }
+    },
+    mounted(){
     },
     methods:{
         check() {
@@ -176,6 +184,17 @@ export default {
             this.cities = cityData[value];
             this.secondCity = cityData[value][0];
         },
+        /** 判断返回的用户性别 */
+        checkGender(){
+            console.log(this.userItem[0].gender)
+            if(this.userItem[0].gender===1){
+                this.defaultValue = '男'
+            }else if(this.userItem[0].gender===0){
+                this.defaultValue = '女'
+            }else{
+                this.defaultValue = '保密'
+            }
+        }
     },
 }
 </script>

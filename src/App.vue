@@ -97,7 +97,7 @@ export default {
        {
          title: "目及皆是你",
          artist: "小蓝背心",
-         src: "歌曲文件的URL",
+         src: "http://m7.music.126.net/20211013223730/53924ad5f65c5bb9074556a5e33f9e77/ymusic/37b3/dc59/9b3e/fac1935163e8de2028f3ae134109dc5d.mp3",
          pic: "封面图片URL",
          lrc: "歌词或歌词文件的URL",
        },

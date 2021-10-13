@@ -6,22 +6,24 @@
                 <Ranking>
                     <template v-slot:rankingTitle>
                         <div class="ranking-title">
-                            <img src="/109951166027478939.jpg" />
+                            <img :src="userItem[0].avatarUrl" style="width:188px;height:188px" />
                             <div class="rktitle rktitle-home">
                                 <div class="rktitle-1">
-                                    <h2>yyyy-xyezhu</h2>
-                                    <a-icon type="man" :style="{fontSize:'18px',color:'#08c'}" />
+                                    <h2>{{userItem[0].nickname}}</h2>
+                                    <a-icon type="man" v-if="userItem[0].gender === 1" :style="{fontSize:'16px',color:'#08c'}" />
+                                    <a-icon type="woman" v-else-if="userItem[0].gender === 0" :style="{fontSize:'16px',color:'hotpink'}" />
+                                    <a-icon v-else  />
                                     <a-button class="update-myhome" >编辑个人资料</a-button>
                                 </div>
-                                <dataCount></dataCount>
+                                <dataCount class="user-data-2"></dataCount>
                                 <div class="rktitle-3">
                                     <span>所在地区：</span><span>广东省 - 珠海市</span>
-                                    <span class="sep">年龄：</span><span>95后</span>
+                                    <span class="sep">出生日期：</span><span>{{userItem[0].birthday | formatDate}}</span>
                                 </div>
                             </div>
                         </div>
                     </template>
-                    <template v-slot:rankingList>
+                    <!--<template v-slot:rankingList>
                         <div class="ranking-list">
                             <List :islistIcon="true">
                                 <template v-slot:listTitle>
@@ -40,7 +42,7 @@
                                 <a slot="name" slot-scope="text">{{ text }}</a>
                             </a-table>
                         </div>
-                    </template>
+                    </template>-->
                 </Ranking>
                 <div class="hot-recommend">
                     <List :islistIcon="true">
@@ -48,24 +50,24 @@
                             <a href="#" class="v-list-title">我创建的歌单</a>
                         </template>
                         <template v-slot:listTab>
-                            <a href="#">(<em>11</em>)</a>
+                            <a href="#">(<em>{{createdSong.length}}</em>)</a>
                         </template>
                     </List>
                     <div class="hot-recommend-music my-create-song">
                         <MusicImage>
                             <template v-slot:recommend>
                                 <ul class="music-ul my-create-song-ul" v-if="createdSong.length">
-                                    <li v-for="item in createdSong" :key="item.musicId">
-                                        <div class="music-image">
-                                            <img :src="item.musicImg" />
-                                            <a class="music-msk" :title="item.musicMsk" href="#"></a>
+                                    <li v-for="item in createdSong" :key="item.id">
+                                        <div class="music-image song-image">
+                                            <img :src="item.coverImgUrl"  />
+                                            <a class="music-msk" :title="item.name" href="#"></a>
                                             <div class="music-bottom">
                                                 <a-icon class="bottom-ej" type="customer-service" />
-                                                <span class="nb">{{item.musicNb}}</span>
+                                                <span class="nb">{{item.playCount}}</span>
                                                 <a-icon class="bottom-bf" title="播放" type="play-circle" />
                                             </div>
                                         </div>
-                                        <p class="music-dec"><a href="#">{{item.musicMsk}}</a></p>
+                                        <p class="music-dec"><a href="#" :title="item.name">{{item.name}}</a></p>
                                     </li>
                                 </ul>  
                             </template>
@@ -78,24 +80,24 @@
                             <a href="#" class="v-list-title">我收藏的歌单</a>
                         </template>
                         <template v-slot:listTab>
-                            <a href="#">(<em>11</em>)</a>
+                            <a href="#">(<em>{{collectSong.length}}</em>)</a>
                         </template>
                     </List>
                     <div class="hot-recommend-music my-collect-song">
                         <MusicImage>
                             <template v-slot:recommend>
                                 <ul class="music-ul my-collect-song-ul" v-if="collectSong.length">
-                                    <li v-for="item in collectSong" :key="item.musicId">
-                                        <div class="music-image">
-                                            <img :src="item.musicImg" />
-                                            <a class="music-msk" :title="item.musicMsk" href="#"></a>
+                                    <li v-for="item in collectSong" :key="item.id">
+                                        <div class="music-image song-image">
+                                            <img :src="item.coverImgUrl" style="width:140px;height:140px" />
+                                            <a class="music-msk" :title="item.name" href="#"></a>
                                             <div class="music-bottom">
                                                 <a-icon class="bottom-ej" type="customer-service" />
-                                                <span class="nb">{{item.musicNb}}</span>
+                                                <span class="nb">{{item.playCount}}</span>
                                                 <a-icon class="bottom-bf" title="播放" type="play-circle" />
                                             </div>
                                         </div>
-                                        <p class="music-dec"><a href="#">{{item.musicMsk}}</a></p>
+                                        <p class="music-dec"><a href="#" :title="item.name">{{item.name}}</a></p>
                                     </li>
                                 </ul>  
                             </template>
@@ -112,6 +114,8 @@ import Ranking from '../ChildComponents/ranking'
 import List from '../ChildComponents/List'
 import MusicImage from '../ChildComponents/musicImage'
 import dataCount from '../ChildComponents/dataCount'
+import {mapGetters} from 'vuex'
+import axios from '../../utils/services'
 export default {
     components:{
         Ranking,
@@ -119,191 +123,78 @@ export default {
         MusicImage,
         dataCount
     },
+    filters:{
+        /** 年/月/日 */
+        formatDate: function (value) {
+            let date = new Date(value);
+            let yy = date.getFullYear()
+            let MM = date.getMonth() + 1;
+            MM = MM < 10 ? ('0' + MM) : MM;
+            let d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            return yy +'-'+ MM + '-' + d;
+        },
+    },
+    computed:{
+        ...mapGetters({
+            userItem: 'getUserItem'
+        })
+    },
     data(){
         return{
-            rankColumns:[
-                {
-                    title: '',
-                    dataIndex: 'key',
-                    width:50
-                },
-                {
-                    title: '标题',
-                    dataIndex: 'title',
-                    ellipsis: true,
-                },
-                {
-                    title: '时长',
-                    dataIndex: 'duration',
-                    width: 130,
-                    ellipsis: true,
-                },
-                {
-                    title: '歌手',
-                    dataIndex: 'singer',
-                    width: 230,
-                    ellipsis: true,
-                },
-            ],
-            rankData:[
-                {
-                    key: 1,
-                    title: <div class="data-title">
-                        <a-icon type="play-circle" />
-                        <a href="#">致你</a><span>- (女生版)</span>
-                    </div>,
-                    duration: <span class="data-duration">04:31</span>,
-                    singer: <a href="#" class="data-singer">yihuik苡慧</a>,
-                },
-                {
-                    key: 2,
-                    title: <div class="data-title">
-                        <a-icon type="play-circle" />
-                        <a href="#">你注定会遇到我</a><span></span>
-                    </div>,
-                    duration: <span class="data-duration">04:16</span>,
-                    singer: <a href="#" class="data-singer">金玟岐</a>,
-                },
-                {
-                    key: 3,
-                    title: <div class="data-title">
-                        <a-icon type="play-circle" />
-                        <a href="#">我们好好的</a><span></span>
-                    </div>,
-                    duration: <span class="data-duration">04:32</span>,
-                    singer: <a href="#" class="data-singer">李荣浩</a>,
-                },
-                {
-                    key: 4,
-                    title: <div class="data-title">
-                        <a-icon type="play-circle" />
-                        <a href="#">不安（Live）</a><span></span>
-                    </div>,
-                    duration: <span class="data-duration">03:28</span>,
-                    singer: <a href="#" class="data-singer">陈红鲤</a>,
-                },
-                {
-                    key: 5,
-                    title: <div class="data-title">
-                        <a-icon type="play-circle" />
-                        <a href="#">生命線</a><span>- (游戏《月姬 -A piece of blue glass moon-》主题曲)</span>
-                    </div>,
-                    duration: <span class="data-duration">04:15</span>,
-                    singer: <a href="#" class="data-singer">ReoNa</a>,
-                },
-            ],
-            collectSong:[
-                {
-                    musicId:'1',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'2',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'3',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'4',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'5',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'6',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'7',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                }
-            ],
-            createdSong:[
-                {
-                    musicId:'1',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'2',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'3',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'4',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'5',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'24万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'6',
-                    musicImg:'/109951166027478939.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                },
-                {
-                    musicId:'7',
-                    musicImg:'/109951166283221642.jpg',
-                    musicMsk:'私人雷达|根据听歌记录为你打造',
-                    musicNb:'25万',
-                    musicLove:'猜你喜欢'
-                }
-            ],
+            rankColumns:[],
+            rankData:[],
+            collectSong:[],
+            createdSong:[],
+        }
+    },
+    mounted(){
+        this.homeSonglist();
+    },
+    methods:{
+        homeSonglist(){
+            axios.get(`/user/playlist?uid=${this.userItem[0].userId}`)
+                .then((response)=>{
+                    let playlist = response.data.playlist
+                    for(let i=0;playlist.length>i;i++){
+                        if(playlist[i].subscribed===true){
+                            this.collectSong.push(playlist[i])
+                        }else{
+                            this.createdSong.push(playlist[i])
+                        }
+                    }
+                })
         }
     }
 }
 </script>
 <style lang="less">
+@width: 140px;
+.song-image{
+    img{
+        border: 1px solid #ccc;
+        width: @width;
+        height: @width;
+    }
+}
+.my-collect-song-ul,.my-create-song-ul{
+    li{
+        .music-dec{
+            width: @width;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+        }
+    }
+}
 .my-create-song-ul li,.my-collect-song-ul li{
     margin-left: 3vw;
 }
 .rktitle-home{
     margin-top: 0;
+}
+.ranking-title{
+    height: 200px;
 }
 .rktitle-1{
     border-bottom: 1px solid #ccc;

@@ -112,7 +112,6 @@ export default {
                     for(let i=0;this.hotShelves.length<10;i++){
                         this.hotShelves.push(response.data.weekData[i])
                     }
-                    console.log("response",this.hotShelves)
                 })
         },
         /** 全部新碟 */
@@ -120,7 +119,6 @@ export default {
             axios.get(`/album/new?area=${this.area}&offset=${this.offset}&limit=${35}`)
                 .then((response)=>{
                     this.allShelves = response.data.albums
-                    console.log("response2",response)
                 })
         }
     }
@@ -134,7 +132,7 @@ export default {
     margin-left:3.6vw;
 }
 .shelves-bottom .bottom-bf{
-    left: 7.5vw !important;
+    left: 7vw !important;
 }
 .shelves-ul li{
     .singer-dec{
