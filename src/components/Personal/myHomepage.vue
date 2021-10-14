@@ -156,13 +156,16 @@ export default {
             axios.get(`/user/playlist?uid=${this.userItem[0].userId}`)
                 .then((response)=>{
                     let playlist = response.data.playlist
+                    console.log(playlist)
                     for(let i=0;playlist.length>i;i++){
-                        if(playlist[i].subscribed===true){
+                        if(playlist[i].ordered===true){
                             this.collectSong.push(playlist[i])
                         }else{
                             this.createdSong.push(playlist[i])
                         }
                     }
+                    console.log("collect:",this.collectSong)
+                    console.log("created:",this.createdSong)
                 })
         }
     }
