@@ -75,7 +75,6 @@ export default {
         this.$router.push('/discoveryMusic/ranking/details')
         this.detailslist('19723756')
     },
-    
     methods:{
         /** 所有榜单内容摘要 */
         toplist(){

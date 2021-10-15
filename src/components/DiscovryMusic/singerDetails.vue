@@ -87,6 +87,7 @@
 import Ranking from '../ChildComponents/ranking'
 import SingerImage from '../ChildComponents/singerImage'
 import List from '../ChildComponents/List'
+import axios from '../../utils/services'
 export default {
     components:{
         Ranking,
@@ -282,7 +283,15 @@ export default {
                 },
             ]
         }
-    }
+    },
+    methods:{
+        /** 歌手热门top50 /artist/top/song?id=6452 */
+        /** 歌手mv /artist/mv?id=6452 */
+        /** 歌手专辑 /artist/album?id=6452&limit=30 */
+        /** 歌手描述 /artist/desc?id=6452 */
+        /** 歌手详情 /artist/detail?id=11972054 */
+        /** 热门歌手  */
+    },
 }
 </script>
 <style lang="less">

@@ -31,14 +31,18 @@
                                 <li v-for="(item,index) in hotRecommend" :key="index">
                                     <div class="music-image">
                                         <img :src="item.coverImgUrl" class="music-img" />
-                                        <a class="music-msk" :title="item.name" href="#"></a>
+                                        <router-link class="music-msk" :title="item.name" 
+                                            :to="{path:'/discoveryMusic/list/details',query:{id:item.id}}"></router-link>
                                         <div class="music-bottom">
                                             <a-icon class="bottom-ej" type="customer-service" />
                                             <span class="nb">{{item.playCount}}</span>
                                             <a-icon class="bottom-bf" title="播放" type="play-circle" />
                                         </div>
                                     </div>
-                                    <p class="music-dec"><a href="#" :title="item.name">{{item.name}}</a></p>
+                                    <p class="music-dec">
+                                        <router-link :to="{path:'/discoveryMusic/list/details',query:{id:item.id}}" 
+                                            :title="item.name">{{item.name}}</router-link>
+                                    </p>
                                 </li>
                             </ul>
                         </template>
@@ -62,14 +66,18 @@
                                 <li v-for="(item,index) in recommendAtion" :key="index">
                                     <div class="music-image">
                                         <img :src="item.picUrl" class="music-img" />
-                                        <a class="music-msk" :title="item.name" href="#"></a>
+                                        <router-link class="music-msk" :title="item.name" 
+                                            :to="{path:'/discoveryMusic/list/details',query:{id:item.id}}"></router-link>
                                         <div class="music-bottom">
                                             <a-icon class="bottom-ej" type="customer-service" />
                                             <span class="nb">{{item.playCount}}</span>
                                             <a-icon class="bottom-bf" title="播放" type="play-circle" />
                                         </div>
                                     </div>
-                                    <p class="music-dec"><a href="#" :title="item.name">{{item.name}}</a></p>
+                                    <p class="music-dec">
+                                        <router-link :to="{path:'/discoveryMusic/list/details',query:{id:item.id}}" 
+                                            :title="item.name">{{item.name}}</router-link>
+                                    </p>
                                     <p class="music-love"><em :title="item.copywriter">{{item.copywriter}}</em></p>
                                 </li>
                             </ul>
@@ -96,12 +104,14 @@
                                         <li v-for="(item,index) in items" :key="index">
                                             <div class="singer-image">
                                                 <img :src="item.blurPicUrl"/>
-                                                <a class="singer-msk" :title="item.name" href="#" style="cursor:pointer;top:0px;"></a>
+                                                <router-link class="singer-msk" :title="item.name" to="#" style="cursor:pointer;top:0px;"></router-link>
                                                 <div class="singer-bottom" >
                                                     <a-icon class="bottom-bf" title="播放" type="play-circle" />
                                                 </div>
                                             </div>
-                                            <p class="singer-dec"><a href="#" :title="item.name">{{item.name}}</a></p>
+                                            <p class="singer-dec">
+                                                <router-link to="#" :title="item.name">{{item.name}}</router-link>
+                                            </p>
                                             <p class="singer-love"><em :title="item.artists[0].name">{{item.artists[0].name}}</em></p>
                                         </li>
                                     </ul>
@@ -162,7 +172,7 @@
                         <a href="#" class="v-list-title" style="font-size:12px;font-weight:bold;margin:1.5vh 0 0 -1vw;">入驻歌手</a>
                     </template>
                     <template v-slot:listMore>
-                        <a href="#" style="font-size:12px;margin-right:1vw;margin-top:1vh;">查看全部></a>
+                        <router-link to="#" style="font-size:12px;margin-right:1vw;margin-top:1vh;">查看全部></router-link>
                     </template>
                 </List>
                 <SingerList>

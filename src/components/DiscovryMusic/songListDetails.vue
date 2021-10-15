@@ -6,36 +6,31 @@
                 <Ranking>
                     <template v-slot:rankingTitle>
                         <div class="ranking-title songlist-details">
-                            <img src="/109951166027478939.jpg" />
+                            <img :src="songListData.coverImgUrl" style="width:146px;height:146px;" />
                             <div class="rktitle">
-                                <span class="details-type">歌单</span><h2>踏山河~嘉宾~不是花火呀</h2>
-                                <img src="/109951166027478939.jpg" style="width:40px;height:40px;cursor:pointer;border:0 solid" />
-                                <router-link to="/discoverMusic/userDetails" class="songlist-details-user">---于怀</router-link>
-                                <span>2020-03-07 创建</span>
+                                <span class="details-type">歌单</span><h2>{{songListData.name}}</h2>
+                                <img :src="songListData.creator.avatarUrl" style="width:40px;height:40px;cursor:pointer;border:0 solid" />
+                                <router-link to="/discoverMusic/userDetails" 
+                                    class="songlist-details-user">{{songListData.creator.nickname}}</router-link>
+                                <span>{{songListData.createTime | formatDate}} 创建</span>
                                 <div>
                                     <a-button type="primary" icon="play-circle" >播放</a-button>
                                     <a-button type="primary" icon="plus"  class="rank-plus" style="font-size:12px" />
-                                    <a-button icon="folder-add" >(111)</a-button>
-                                    <a-button icon="rise" >(33333333)</a-button>
+                                    <a-button icon="folder-add" >({{songListData.subscribedCount}})</a-button>
+                                    <a-button icon="rise" >({{songListData.shareCount}})</a-button>
                                     <a-button icon="download" >下载</a-button>
                                 </div>
                                 <div class="songlist-details-tag">
                                     <span>标签：</span>
                                     <ul>
-                                        <li><a-tag><a href="#">流行</a></a-tag></li>
-                                        <li><a-tag><a href="#">清晨</a></a-tag></li>
-                                        <li><a-tag><a href="#">治愈</a></a-tag></li>
+                                        <li v-for="(item,index) in songListData.tags" :key="index">
+                                            <a-tag><a href="#">{{item}}</a></a-tag>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="songlist-details-descriptions">
                                     <span>介绍：</span>
-                                    <span>我们常常会陷入悲伤绝望的情绪而无法自拔
-                                        打开这个歌单
-                                        再最后回忆一次
-                                        无法割舍的糟糕过去
-                                        听完这些歌
-                                        向着前方继续前进吧
-                                        让坏情绪都留在这里</span>
+                                    <span>{{songListData.description | maxEllipsis}}</span>
                                 </div>
                             </div>
                         </div>
@@ -47,17 +42,45 @@
                                     <a href="#" class="v-list-title" style="cursor:default;textDecoration:none;">歌曲列表</a>
                                 </template>
                                 <template v-slot:listTab>
-                                    <a href="#" style="font-size:12px;margin-left:1vw;margin-top:0.2vh;cursor:default;textDecoration:none;">99首歌</a>
+                                    <a href="#" style="font-size:12px;margin-left:1vw;margin-top:0.2vh;cursor:default;textDecoration:none;">{{songListData.trackCount}}首歌</a>
                                 </template>
                                 <template v-slot:listMore>
                                     <a href="#" style="font-size:12px;cursor:default;textDecoration:none;margin-right:1vw;margin-top:1vh;">
-                                        播放：<em style="color:#c20c0c">4495203840 </em>次
+                                        播放：<em style="color:#c20c0c">{{songListData.playCount}} </em>次
                                     </a>
                                 </template>
                             </List>
-                            <a-table :columns="songListColumns" :row-key="record=>record.key" :data-source="songListData">
-                                <a slot="name" slot-scope="text">{{ text }}</a>
-                            </a-table>
+                            <table class="qgg-table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>标题</th>
+                                        <th>时长</th>
+                                        <th>歌手</th>
+                                        <th>专辑</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item,index) in songListData.tracks" :key="index">
+                                        <td width="5%">{{index+1}}</td>
+                                        <td width="60%">
+                                            <a-icon class="bottom-bf qgg-table-playCircle" type="play-circle" />
+                                            <a href="#" :title="item.name">{{item.name}}</a>
+                                            <span v-for="(items,index1) in item.alia" :key="index1" :title="items">
+                                                {{index1 === item.alia.length ? " ":"- "}}{{items}}
+                                            </span>
+                                        </td>
+                                        <td width="10%">{{item.dt | formatSeconds}}</td>
+                                        <td width="5%" class="qgg-table-singer">
+                                            <div class="qgg-table-singer-div">
+                                                <a href="#" v-for="(items,index2) in item.ar" :key="index2" 
+                                                    :title="items.name" >{{items.name}}{{index2 === item.ar.length-1 ? " ":" / "}}</a>
+                                            </div>
+                                        </td>
+                                        <td width="20%" class="qgg-table-singer">{{item.al.name | minEllipsis}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </template>
                 </Ranking>
@@ -71,8 +94,8 @@
                         </template>
                     </List>
                     <ul class="love-songlist-user clearfix">
-                        <li v-for="item in loveUserData" :key="item.userId">
-                            <img :src="item.userAvatar"  :title="item.userName" style="width:40px;height:40px" />
+                        <li v-for="(item,index) in songListData.subscribers" :key="index">
+                            <img :src="item.avatarUrl"  :title="item.nickname" style="width:40px;height:40px" />
                         </li>
                     </ul>
                 </div>
@@ -87,9 +110,9 @@
                         <template v-slot:singerLists>
                             <a-list item-layout="horizontal" :data-source="hotSongData">
                                 <a-list-item slot="renderItem" slot-scope="item">
-                                    <a-list-item-meta :description="item.description">
-                                        <a slot="title" href="#">{{ item.title }}</a>
-                                        <a-avatar slot="avatar" shape="square" :size="64"  src="/109951166027478939.jpg"/>
+                                    <a-list-item-meta :description="item.creator.nickname">
+                                        <a slot="title" href="#" :title="item.name">{{ item.name }}</a>
+                                        <a-avatar slot="avatar" shape="square" :size="64"  :src="item.coverImgUrl"/>
                                     </a-list-item-meta>
                                 </a-list-item>
                             </a-list>
@@ -105,172 +128,87 @@
 import Ranking from '../ChildComponents/ranking.vue'
 import List from '../ChildComponents/List.vue'
 import SingerList from '../ChildComponents/singerList.vue'
+import axios from '../../utils/services'
 export default {
     components:{
         Ranking,
         List,
         SingerList
     },
+    props:['id'],
     data(){
         return{
             /** 歌曲列表 */
-            songListColumns:[
-                {
-                    title: '',
-                    dataIndex: 'key',
-                    width:40
-                },
-                {
-                    title: '',
-                    dataIndex: 'rank',
-                    width: 40,
-                },
-                {
-                    title: '标题',
-                    dataIndex: 'title',
-                    width: 250,
-                    ellipsis: true,
-                },
-                {
-                    title: '时长',
-                    dataIndex: 'duration',
-                    width: 130,
-                    ellipsis: true,
-                },
-                {
-                    title: '歌手',
-                    dataIndex: 'singer',
-                    width: 130,
-                    ellipsis: true,
-                },
-                {
-                    title: '专辑',
-                    dataIndex: 'shelves',
-                    width: 170,
-                    ellipsis: true,
-                },
-            ],
-            songListData:[
-                {
-                    key: 1,
-                    rank: <a-icon type="play-circle" />,
-                    title: <div class="data-title">
-                        <a href="#">致你</a><span>- (女生版)</span>
-                    </div>,
-                    duration: <span class="data-duration">04:31</span>,
-                    singer: <a href="#" class="data-singer">yihuik苡慧</a>,
-                    shelves: <a href="#" class="data-shelves">致你</a>
-                },
-                {
-                    key: 2,
-                    rank: <a-icon type="play-circle" />,
-                    title: <div class="data-title">
-                        <a href="#">你注定会遇到我</a><span></span>
-                    </div>,
-                    duration: <span class="data-duration">04:16</span>,
-                    singer: <a href="#" class="data-singer">金玟岐</a>,
-                    shelves: <a href="#" class="data-shelves">飞船</a>
-                },
-                {
-                    key: 3,
-                    rank: <a-icon type="play-circle" />,
-                    title: <div class="data-title">
-                        <a href="#">我们好好的</a><span></span>
-                    </div>,
-                    duration: <span class="data-duration">04:32</span>,
-                    singer: <a href="#" class="data-singer">李荣浩</a>,
-                    shelves: <a href="#" class="data-shelves">你的婚礼</a>
-                },
-                {
-                    key: 4,
-                    rank: <a-icon type="play-circle" />,
-                    title: <div class="data-title">
-                        <a href="#">不安（Live）</a><span></span>
-                    </div>,
-                    duration: <span class="data-duration">03:28</span>,
-                    singer: <a href="#" class="data-singer">陈红鲤</a>,
-                    shelves: <a href="#" class="data-shelves">我是歌手第二季 第8期</a>
-
-                },
-                {
-                    key: 5,
-                    rank: <a-icon type="play-circle" />,
-                    title: <div class="data-title">
-                        <a href="#">生命線</a><span>- (游戏《月姬 -A piece of blue glass moon-》主题曲)</span>
-                    </div>,
-                    duration: <span class="data-duration">04:15</span>,
-                    singer: <a href="#" class="data-singer">ReoNa</a>,
-                    shelves: <a href="#" class="data-shelves">一开始你就很特别</a>,
-                },
-            ],
-            /** 喜欢这个歌单、专辑的人 */
-            loveUserData:[
-                {
-                    userId: 1,
-                    userName: '树莓小雪糕',
-                    userAvatar: '/109951166027478939.jpg',
-                },
-                {
-                    userId: 2,
-                    userName: '小铁Joe',
-                    userAvatar: '/109951166027478939.jpg',
-                },
-                {
-                    userId: 3,
-                    userName: '羊驼idol',
-                    userAvatar: '/109951166027478939.jpg',
-                },
-                {
-                    userId: 4,
-                    userName: '浮梦沉生',
-                    userAvatar: '/109951166027478939.jpg',
-                },
-                {
-                    userId: 5,
-                    userName: '一只喵喵喵星人',
-                    userAvatar: '/109951166027478939.jpg',
-                },
-                {
-                    userId: 6,
-                    userName: '欢欢酱-',
-                    userAvatar: '/109951166027478939.jpg',
-                },
-                {
-                    userId: 7,
-                    userName: '名字好难啊-',
-                    userAvatar: '/109951166027478939.jpg',
-                },
-                {
-                    userId: 8,
-                    userName: '来找小玉听歌',
-                    userAvatar: '/109951166027478939.jpg',
-                },
-
-            ],
+            songListData:[],
             /** 热门歌单 */
-            hotSongData:[
-                {
-                    title: '【精品中国纪录片】用音乐记录美丽祖国',
-                    description:'般蛋'
-                },
-                {
-                    title: '睡眠治愈曲 | 慵懒撩人，聆听入境',
-                    description:'后原'
-                },
-                {
-                    title: '后摇单人团|一个人的宇宙',
-                    description:'帐号已注销'
-                },
-                {
-                    title: '欧美小鲜肉｜始于颜值 陷于才华',
-                    description:'银河系第一帅气'
-                },
-                {
-                    title: '华语电影台词对白｜念念不忘',
-                    description:'下一颗巧克力'
-                },
-            ]
+            hotSongData:[]
         }
+    },
+    filters:{
+        /** 年/月/日 */
+        formatDate: function (value) {
+            let date = new Date(value);
+            let yy = date.getFullYear()
+            let MM = date.getMonth() + 1;
+            MM = MM < 10 ? ('0' + MM) : MM;
+            let d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            return yy +'-'+ MM + '-' + d;
+        },
+        /** 分/秒 */
+        formatSeconds: function(value){
+            let date = new Date(value);
+            let m = date.getMinutes();
+            m = m < 10 ? ('0' + m) : m;
+            let s = date.getSeconds();
+            s = s < 10 ? ('0' + s) : s;
+            return m + ':' + s;
+        },
+        /** 字符超长处理 */
+        minEllipsis (value) {
+            if (!value) return ''
+            if (value.length > 10) {
+                return value.slice(0,10) + '...'
+            }
+            return value
+        },
+        maxEllipsis (value) {
+            if (!value) return ''
+            if (value.length > 100) {
+                return value.slice(0,100) + '...'
+            }
+            return value
+        }
+    },
+    mounted(){
+        this.getPath()
+    },
+    watch:{
+        '$route':'getPath'
+    },
+    methods:{
+        /** 监听路由，每次进入页面调用方法，放在method里 */
+        getPath(){
+            if(this.$route.path == '/discoveryMusic/list/details'){
+                this.songDetailsList(); //初始化方法
+                this.hotSongList();
+            }
+        },
+        /** 获取歌单详情 */
+        songDetailsList(){
+            axios.get(`/playlist/detail?id=${this.$route.query.id}`)
+                .then((response)=>{
+                    this.songListData = response.data.playlist
+                })
+        },
+        /** 热门歌单/top/playlist?limit=5 */
+        hotSongList(){
+            axios.get(`/top/playlist?limit=5`)
+                .then((response)=>{
+                    this.hotSongData = response.data.playlists
+                })
+        }
+        
     }
 }
 </script>

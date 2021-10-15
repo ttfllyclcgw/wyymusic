@@ -19,10 +19,13 @@
                         <li v-for="(item,index) in artistData" :key="index" style="width:118px;">
                             <div class="music-image" >
                                 <img :src="item.picUrl" v-if="index<10" style="width:118px;height:110px;"  />
-                                <router-link to="/discoverMusic/singer/details" class="music-msk" 
-                                    :title="item.name"></router-link>
+                                <router-link :to="{path:'/discoveryMusic/singer/details',query:{id:item.id}}" 
+                                    class="music-msk" :title="item.name"></router-link>
                             </div>
-                            <p class="music-dec" style="width:118px;"><a href="#" :title="item.name">{{item.name | ellipsis}}</a></p>
+                            <p class="music-dec" style="width:118px;">
+                                <router-link :to="{path:'/discoveryMusic/singer/details',query:{id:item.id}}" 
+                                    :title="item.name">{{item.name | ellipsis}}</router-link>
+                            </p>
                         </li>
                     </ul>  
                 </template>

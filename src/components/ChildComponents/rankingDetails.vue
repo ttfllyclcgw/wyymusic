@@ -168,7 +168,7 @@ export default {
     cursor: pointer;
 }
 .qgg-table-singer .qgg-table-singer-div{
-    width: 250px;
+    width: 180px;
     display:inline-block;/*行内元素必须添加此属性，宽度设置才能有效*/
     overflow:hidden;
     text-overflow:ellipsis;

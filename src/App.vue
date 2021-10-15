@@ -88,10 +88,6 @@ export default {
   data() {
     return {
       collapsed: false,
-      detailForm: {
-       clickType: "",
-       title: "ajlgaljg",
-     },
      // 音频列表
      musics: [
        {
